@@ -39,7 +39,7 @@ onPlayerSpawned()
 	for(;;)
 	{
 		self waittill( "spawned_player" );
-		if ( self.inital_spawn )
+		if ( self.initial_spawn )
 		{
 			self.initial_spawn = 0;
 			self iPrintLn( "^2Any Player EE Mod ^5Buried" );
