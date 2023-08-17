@@ -16,6 +16,37 @@ main()
 	replaceFunc( ::ows_targets_start, ::new_ows_targets_start);
 }
 
+init()
+{
+	thread onPlayerConnect();
+}
+
+onPlayerConnect()
+{
+	while ( 1 )
+	{
+		level waittill( "connected", player );
+		player thread onPlayerSpawned();
+	}
+}
+
+onPlayerSpawned()
+{
+	level endon( "end_game" );
+	self endon( "disconnect" );
+
+	self.initial_spawn = 1;
+	for(;;)
+	{
+		self waittill( "spawned_player" );
+		if ( self.inital_spawn )
+		{
+			self.inital_spawn = 0;
+			self iPrintLn( "^2Any Player EE Mod ^5Buried" );
+		}
+	}
+}
+
 playertracker_onlast_step()
 {
 	players = getPlayers();
