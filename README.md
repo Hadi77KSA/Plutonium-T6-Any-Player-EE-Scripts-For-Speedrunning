@@ -8,7 +8,7 @@
 
 ## Die Rise
 
-### Elevators step and Dragon Puzzle
+### Elevators Step and Dragon Puzzle
 Require the same amount as the number of players. If the Dragon Puzzle step is failed, it will reset back to require the same amount as the number of players.
 
 ### Trample Steam step:
