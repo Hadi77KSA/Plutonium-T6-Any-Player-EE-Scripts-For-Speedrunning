@@ -17,7 +17,7 @@ Require the same amount as the number of players. If the Dragon Puzzle step is f
 - If the player is playing solo or 3p:
   - once the player picks up a ball, gives the player the ability to place the ball on an already correctly placed Trample Steam without needing a Trample Steam on the opposite end. On 3p, this is executed if the ball is picked up while there's already a ball flinging; and
   - once a player places a Trample Steam correctly, gives each player already carrying a ball the ability to place it without needing a Trample Steam on the opposite end. On 3p, this is executed if the Trample Steam is placed while there's already a ball flinging.
-  - (Note): on 3p while trying the methods when there isn't a Trample Steam on the opposite end, the player may need to place the ball back at the statue and pick it back up for the prompt to appear. This is caused by carrying a ball and having already placed down the lone Trample Steam correctly before a ball is launched.
+- On 3p, flinging a ball will make each player carrying a ball be able to place it on the lone Trample Steam.
 
 #### Richtofen Side
 Requires the players to place Trample Steams only on the same amount of symbols as players.

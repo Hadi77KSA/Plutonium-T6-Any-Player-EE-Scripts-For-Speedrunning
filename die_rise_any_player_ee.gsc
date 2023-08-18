@@ -179,13 +179,15 @@ custom_get_number_of_players()
 // Trample Steam steps
 
 //if the number of players is less than or equal to 2 and a ball is placed for the Maxis Trample Steam step, keeps the trigger to place a new ball for the Trample Steam it was placed on and the one opposite from it
+//if the number of players is 3, creates trigs for each player already carrying a ball to enable them to place the ball on the lone Trample Steam if the Trample Steam was correctly placed before the 1st ball is launched.
 custom_place_ball_think( t_place_ball, s_lion_spot )
 {
 	t_place_ball endon( "delete" );
 
 	t_place_ball waittill( "trigger" );
 
-	if ( getPlayers().size > 2 )
+	a_players = getPlayers();
+	if ( a_players.size > 2 )
 	{
 		pts_putdown_trigs_remove_for_spot( s_lion_spot );
 		pts_putdown_trigs_remove_for_spot( s_lion_spot.springpad_buddy );
@@ -200,6 +202,27 @@ custom_place_ball_think( t_place_ball, s_lion_spot )
 	level.current_generator++;
 	s_lion_spot.springpad thread pts_springpad_fling( s_lion_spot.script_noteworthy, s_lion_spot.springpad_buddy.springpad );
 	self.t_putdown_ball delete();
+
+	if ( a_players.size == 3 )
+	{
+		foreach ( player in a_players )
+		{
+			if ( isdefined( player.zm_sq_has_ball ) && player.zm_sq_has_ball )
+				pts_should_placing_ball_create_trigs( s_lion_spot, player );
+		}
+	}
+}
+
+//once a player flings a ball, gives each player already carrying a ball the ability to place it on the Trample Steam(s) placed on the other set of symbols than the ones on which the ball was flung.
+pts_should_placing_ball_create_trigs( s_lion_spot_used, player )
+{
+	a_lion_spots = getstructarray( "pts_lion", "targetname" );
+
+	foreach ( s_lion_spot in a_lion_spots )
+	{
+		if ( isdefined( s_lion_spot.springpad ) && s_lion_spot != s_lion_spot_used && s_lion_spot.springpad_buddy != s_lion_spot_used )
+			pts_putdown_trigs_create_for_spot( s_lion_spot, player );
+	}
 }
 
 //on the Maxis side if the player is playing solo or 3p, once the player picks up a ball, gives the player the ability to place the ball on an already correctly placed Trample Steam without needing a Trample Steam on the opposite end. On 3p, this is executed if the ball is picked up while there's already a ball flinging.
