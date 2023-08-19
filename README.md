@@ -14,20 +14,20 @@ Require the same amount as the number of players. If the Dragon Puzzle step is f
 If you wish for the Dragon Puzzle step to not reset once an incorrect symbol is stepped on, then commenting out the lines 159 to 160 is necessary. This can be done by either of the following:
 - 1st method: comment out the entire `else` statement by adding `/*` before the `else` on line 154, and `*/` after the `}` on line 162:-
 ```
-                /*else
-                {
-                        if ( !flag( "sq_atd_drg_puzzle_1st_error" ) )
-                                level thread vo_maxis_atd_order_error();
+/*else
+{
+	if ( !flag( "sq_atd_drg_puzzle_1st_error" ) )
+		level thread vo_maxis_atd_order_error();
 
-                        level.sq_atd_cur_drg = 4 - custom_get_number_of_players();
-                        level notify( "drg_puzzle_reset" );
-                        wait 0.5;
-                }*/
+	level.sq_atd_cur_drg = 4 - custom_get_number_of_players();
+	level notify( "drg_puzzle_reset" );
+	wait 0.5;
+}*/
 ```
 - 2nd method: comment out just lines 159 and 160 by adding `/*` at the beginning of line 159, and `*/` at the end of line 160:-
 ```
-                        /*level.sq_atd_cur_drg = 4 - custom_get_number_of_players();
-                        level notify( "drg_puzzle_reset" );*/
+/*level.sq_atd_cur_drg = 4 - custom_get_number_of_players();
+level notify( "drg_puzzle_reset" );*/
 ```
 
 ### Trample Steam step:
