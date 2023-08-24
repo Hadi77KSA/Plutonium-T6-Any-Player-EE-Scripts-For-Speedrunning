@@ -27,24 +27,7 @@ onPlayerConnect()
 	while ( 1 )
 	{
 		level waittill( "connected", player );
-		player thread onPlayerSpawned();
-	}
-}
-
-onPlayerSpawned()
-{
-	level endon( "end_game" );
-	self endon( "disconnect" );
-
-	self.initial_spawn = 1;
-	for(;;)
-	{
-		self waittill( "spawned_player" );
-		if ( self.initial_spawn )
-		{
-			self.initial_spawn = 0;
-			self iPrintLn( "^2Any Player EE Mod ^5Buried" );
-		}
+		player iPrintLn( "^2Any Player EE Mod ^5Buried" );
 	}
 }
 
