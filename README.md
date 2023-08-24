@@ -39,3 +39,6 @@ Minimum number of required targets:
 - 1p: 20 targets (Candy Shop)
 - 2p: 39 targets (Candy Shop + Saloon (19))
 - Otherwise: all 84 targets
+
+## Super Easter Egg
+Allows for the Super Easter Egg button to be accessible with any number of players as long as: the players have, collectively, inserted the Navcards on all three Victis maps of TranZit, Die Rise, and Buried; and each player in the lobby has completed the Victis maps' Easter Eggs on the same side across the maps; and the completed side across all players is the same.
