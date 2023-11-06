@@ -1,10 +1,7 @@
 #include common_scripts\utility;
 #include maps\mp\_utility;
-#include maps\mp\zm_highrise_sq;
 #include maps\mp\zm_highrise_sq_atd;
 #include maps\mp\zm_highrise_sq_pts;
-#include maps\mp\zombies\_zm_sidequests;
-#include maps\mp\zombies\_zm_utility;
 
 main()
 {

@@ -108,7 +108,7 @@ custom_sq_metagame()
 		}
 	}
 
-	if ( level.n_metagame_machine_lights_on >= player_count * 3 ) //changed to adapt to the number of players
+	if ( level.n_metagame_machine_lights_on == player_count * 3 ) //changed to adapt to the number of players
 	{
 		if ( is_blue_on && is_orange_on )
 			return;
