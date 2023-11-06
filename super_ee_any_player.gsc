@@ -14,7 +14,7 @@ init()
 
 onPlayerConnect()
 {
-	while ( 1 )
+	while ( true )
 	{
 		level waittill( "connected", player );
 		player iPrintLn( "^2Any Player EE Mod ^5Super Easter Egg" );
@@ -69,7 +69,10 @@ custom_sq_metagame()
 	player_count = players.size;
 	if ( player_count > 4 ) //in case of more than 4 players, only checks the progress of 4 players
 		player_count = 4;
-
+/#
+	if ( getdvarint( #"FA81816F" ) >= 1 )
+		player_count = 4;
+#/
 	for ( n_player = 0; n_player < player_count; n_player++ )
 	{
 		for ( n_stat = 0; n_stat < a_stat.size; n_stat++ )
@@ -79,7 +82,13 @@ custom_sq_metagame()
 				n_stat_value = players[n_player] maps\mp\zombies\_zm_stats::get_global_stat( a_stat[n_stat] );
 				n_stat_nav_value = players[n_player] maps\mp\zombies\_zm_stats::get_global_stat( a_stat_nav[n_stat] );
 			}
-
+/#
+			if ( getdvarint( #"FA81816F" ) >= 1 )
+			{
+				n_stat_value = getdvarint( #"FA81816F" );
+				n_stat_nav_value = getdvarint( #"FA81816F" );
+			}
+#/
 			if ( n_stat_value == 1 )
 			{
 				m_endgame_machine sq_metagame_machine_set_light( n_player, n_stat, "sq_bulb_blue" );
@@ -99,7 +108,7 @@ custom_sq_metagame()
 		}
 	}
 
-	if ( level.n_metagame_machine_lights_on == player_count * 3 ) //changed to adapt to the number of players
+	if ( level.n_metagame_machine_lights_on >= player_count * 3 ) //changed to adapt to the number of players
 	{
 		if ( is_blue_on && is_orange_on )
 			return;
