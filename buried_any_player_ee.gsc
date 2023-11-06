@@ -11,10 +11,10 @@
 main()
 {
 	replaceFunc( ::_are_all_players_in_time_bomb_volume, ::_are_all_players_in_time_bomb_volume_qol );
-	replaceFunc( ::ctw_max_start_wisp, ::custom_ctw_max_start_wisp);
-	replaceFunc( ::sq_bp_set_current_bulb, ::custom_sq_bp_set_current_bulb);
+	replaceFunc( ::ctw_max_start_wisp, ::custom_ctw_max_start_wisp );
+	replaceFunc( ::sq_bp_set_current_bulb, ::custom_sq_bp_set_current_bulb );
 	replaceFunc( ::ows_target_delete_timer, ::new_ows_target_delete_timer );
-	replaceFunc( ::ows_targets_start, ::new_ows_targets_start);
+	replaceFunc( ::ows_targets_start, ::new_ows_targets_start );
 }
 
 init()
@@ -24,7 +24,7 @@ init()
 
 onPlayerConnect()
 {
-	while ( 1 )
+	while ( true )
 	{
 		level waittill( "connected", player );
 		player iPrintLn( "^2Any Player EE Mod ^5Buried" );
@@ -53,7 +53,10 @@ _are_all_players_in_time_bomb_volume_qol( e_volume )
 	a_players = get_players();
 	if ( getPlayers().size <= 3 )
 		n_required_players = a_players.size;
-
+/#
+	if ( getdvarint( #"5256118F" ) > 0 )
+		n_required_players = a_players.size;
+#/
 	n_players_in_position = 0;
 
 	foreach ( player in a_players )
@@ -139,6 +142,9 @@ new_ows_target_delete_timer()
 	level.targets_allowed_to_be_missed--;
 	if ( level.targets_allowed_to_be_missed < 0 )
 		flag_set( "sq_ows_target_missed" );
+/#
+	iprintlnbold( "missed target! step failed. target @ " + self.origin );
+#/
 }
 
 new_ows_targets_start()

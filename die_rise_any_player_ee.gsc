@@ -21,14 +21,14 @@ main()
 
 init()
 {
-	thread onplayerconnect();
+	thread onPlayerConnect();
 }
 
-onplayerconnect()
+onPlayerConnect()
 {
-	while(true)
+	while ( true )
 	{
-		level waittill("connecting", player);
+		level waittill( "connected", player );
 		player iPrintLn( "^2Any Player EE Mod ^5Die Rise" );
 	}
 }
@@ -52,6 +52,9 @@ custom_sq_atd_elevators()
 		flag_wait_any_array( a_elevator_flags );
 		wait 0.5;
 	}
+/#
+	iprintlnbold( "Standing on Elevators Complete" );
+#/
 	a_dragon_icons = getentarray( "elevator_dragon_icon", "targetname" );
 
 	foreach ( m_icon in a_dragon_icons )
@@ -76,9 +79,9 @@ standing_on_enough_elevators_check( a_elevator_flags )
 {
 	n_players_standing_on_elevator = 0;
 
-	foreach( m_elevator_flag in a_elevator_flags )
+	foreach ( m_elevator_flag in a_elevator_flags )
 	{
-		if( flag( m_elevator_flag ) )
+		if ( flag( m_elevator_flag ) )
 			n_players_standing_on_elevator++;
 	}
 
@@ -102,6 +105,9 @@ custom_sq_atd_drg_puzzle()
 
 	flag_set( "sq_atd_drg_puzzle_complete" );
 	level thread vo_maxis_atd_order_complete();
+/#
+	iprintlnbold( "Dragon Puzzle COMPLETE" );
+#/
 }
 
 //when floor symbols reset, they reset back to require as many symbols as players
@@ -133,6 +139,9 @@ custom_drg_puzzle_trig_think( n_order_id )
 			self.drg_active = 1;
 			level thread vo_richtofen_atd_order( level.sq_atd_cur_drg );
 			level.sq_atd_cur_drg++;
+/#
+			iprintlnbold( "Dragon " + n_order_id + " Correct" );
+#/
 			self thread drg_puzzle_trig_watch_fade( m_lit, m_unlit, v_top, v_hidden );
 		}
 		else
@@ -142,6 +151,9 @@ custom_drg_puzzle_trig_think( n_order_id )
 
 			level.sq_atd_cur_drg = 4 - custom_get_number_of_players();
 			level notify( "drg_puzzle_reset" );
+/#
+			iprintlnbold( "INCORRECT DRAGON" );
+#/
 			wait 0.5;
 		}
 
@@ -154,7 +166,7 @@ custom_drg_puzzle_trig_think( n_order_id )
 custom_get_number_of_players()
 {
 	n_players = getPlayers().size;
-	if( n_players > 4 )
+	if ( n_players > 4 )
 		n_players = 4;
 
 	return n_players;
@@ -184,6 +196,9 @@ custom_place_ball_think( t_place_ball, s_lion_spot )
 	flag_set( "pts_2_generator_" + level.current_generator + "_started" );
 	s_lion_spot.which_generator = level.current_generator;
 	level.current_generator++;
+/#
+	iprintlnbold( "Ball Animating" );
+#/
 	s_lion_spot.springpad thread pts_springpad_fling( s_lion_spot.script_noteworthy, s_lion_spot.springpad_buddy.springpad );
 	self.t_putdown_ball delete();
 
@@ -252,7 +267,7 @@ custom_pts_putdown_trigs_create_for_spot( s_lion_spot, player )
 	t_place_ball.owner = player;
 	player thread place_ball_think( t_place_ball, s_lion_spot );
 
-	if( !isdefined( s_lion_spot.pts_putdown_trigs ) )
+	if ( !isdefined( s_lion_spot.pts_putdown_trigs ) )
 		s_lion_spot.pts_putdown_trigs = [];
 
 	s_lion_spot.pts_putdown_trigs[player.characterindex] = t_place_ball;
