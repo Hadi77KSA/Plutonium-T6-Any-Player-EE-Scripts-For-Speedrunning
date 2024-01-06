@@ -171,7 +171,7 @@ custom_get_number_of_players()
 
 // Trample Steam steps
 
-//if the number of players is less than or equal to 2 and a ball is placed for the Maxis Trample Steam step, keeps the trigger to place a new ball for the Trample Steam it was placed on and the one opposite from it
+//if the number of players is less than or equal to 3 and a ball is placed for the Maxis Trample Steam step, keeps the trigger to place a new ball for the Trample Steam it was placed on and the one opposite from it
 //if the number of players is 3, creates trigs for each player already carrying a ball to enable them to place the ball on the lone Trample Steam if the Trample Steam was correctly placed before the 1st ball is launched.
 custom_place_ball_think( t_place_ball, s_lion_spot )
 {
@@ -180,7 +180,7 @@ custom_place_ball_think( t_place_ball, s_lion_spot )
 	t_place_ball waittill( "trigger" );
 
 	a_players = getPlayers();
-	if ( a_players.size > 2 )
+	if ( a_players.size > 3 )
 	{
 		pts_putdown_trigs_remove_for_spot( s_lion_spot );
 		pts_putdown_trigs_remove_for_spot( s_lion_spot.springpad_buddy );
@@ -253,10 +253,10 @@ custom_pts_should_springpad_create_trigs( s_lion_spot )
 	}
 }
 
-//if the number of players is 2 or less, once a ball is picked up, gives the ability to place a 2nd ball on a set of Trample Steams that already has a ball flinging from them for the Maxis Trample Steam step
+//if the number of players is 3 or less, once a ball is picked up, gives the ability to place a 2nd ball on a set of Trample Steams that already has a ball flinging from them for the Maxis Trample Steam step
 custom_pts_putdown_trigs_create_for_spot( s_lion_spot, player )
 {
-	if ( ( isdefined( s_lion_spot.which_ball ) || isdefined( s_lion_spot.springpad_buddy ) && isdefined( s_lion_spot.springpad_buddy.which_ball ) ) && getPlayers().size > 2 )
+	if ( ( isdefined( s_lion_spot.which_ball ) || isdefined( s_lion_spot.springpad_buddy ) && isdefined( s_lion_spot.springpad_buddy.which_ball ) ) && getPlayers().size > 3 )
 		return;
 
 	t_place_ball = sq_pts_create_use_trigger( s_lion_spot.origin, 16, 70, &"ZM_HIGHRISE_SQ_PUTDOWN_BALL" );
