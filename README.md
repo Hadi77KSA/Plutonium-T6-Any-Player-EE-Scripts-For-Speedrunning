@@ -1,4 +1,5 @@
 # Plutonium-T6-Any-Player-EE-Scripts-For-Speedrunning
+The following scripts allow the main Easter Egg quests to be done with any number of players—whether it is solo (1 player), duo (2 players), trio (3 players), or even more than 4 players—while aiming to be as similar to the original Easter Eggs as possible.
 ## Installation
 1. Navigate to the [Releases](https://github.com/Hadi77KSA/Plutonium-T6-Any-Player-EE-Scripts-For-Speedrunning/releases/latest) page and download the script you desire.
 2. Navigate to `%localappdata%\Plutonium\storage\t6\scripts\zm`
@@ -7,10 +8,10 @@
 - Die Rise's scripts go to `zm_highrise`
 - Buried's scripts go to `zm_buried`
 - `super_ee_any_player.gsc` goes to `zm_buried`
-The following scripts allow the main Easter Egg quests to be done with any number of players—whether it is solo (1 player), duo (2 players), trio (3 players), or even more than 4 players—while aiming to be as similar to the original Easter Eggs as possible.
+
 # Features
 ## TranZit
-Uses CCDeroga's mod to allow the Maxis side to be completable in solo.
+Uses CCDeroga's mod to allow the Maxis side to be completable in solo.  
 Note that it does not show a message in-game indicating it is loaded once the map is started. To determine if it has been loaded successfully, either go through the Easter Egg and perform a step and listen out for the quotes, or check the Plutonium bootstrapper window for if it says the following line when the map is started:
 ```
 Script "scripts/zm/zm_transit/tranzit_maxis_solo.gsc" loaded successfully
@@ -20,7 +21,7 @@ Only require 1 Turbine if the match was started as a solo match.
 
 ## Die Rise
 ### - Elevators Step and Dragon Puzzle
-Require the same amount as the number of players.
+Require the same amount as the number of players.  
 If the Dragon Puzzle step is failed, it will reset back to require the same amount as the number of players.
 
 ### - Trample Steam Step
@@ -42,7 +43,7 @@ For less than 3p, time limit will be removed. Will only reset if it is failed.
 
 ### b) Richtofen Side
 #### - Round Infinity A.K.A the Time Bomb Step
-On 4p or less, requires all players in the lobby to be near the location of the Time Bomb.
+On 4p or less, requires all players in the lobby to be near the location of the Time Bomb.  
 If the number of players is greater than 4, the step will only work if 4 players are near the location, no more no less, exactly how it works without the mod.
 
 ### Sharpshooter
