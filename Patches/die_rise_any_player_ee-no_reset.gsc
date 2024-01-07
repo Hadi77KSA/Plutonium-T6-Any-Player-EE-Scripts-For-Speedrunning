@@ -205,10 +205,13 @@ custom_place_ball_think( t_place_ball, s_lion_spot )
 	{
 		foreach ( player in a_players )
 		{
-			if ( isdefined( player.zm_sq_has_ball ) && player.zm_sq_has_ball )
+			if ( is_true( player.zm_sq_has_ball ) )
 				pts_should_placing_ball_create_trigs( s_lion_spot, player );
 		}
 	}
+
+	if ( a_players.size < 4 )
+		pts_putdown_trigs_fix();
 }
 
 //once a player flings a ball, gives each player already carrying a ball the ability to place it on the Trample Steam(s) placed on the other set of symbols than the ones on which the ball was flung.
@@ -271,6 +274,16 @@ custom_pts_putdown_trigs_create_for_spot( s_lion_spot, player )
 
 	s_lion_spot.pts_putdown_trigs[player.characterindex] = t_place_ball;
 	level thread pts_putdown_trigs_springpad_delete_watcher( player, s_lion_spot );
+}
+
+//once a player flings a ball, makes sure that each player already carrying a ball keeps the ability to place it on the sets of already-placed Trample Steams.
+pts_putdown_trigs_fix()
+{
+	foreach ( player in a_players )
+	{
+		if ( is_true( player.zm_sq_has_ball ) )
+			pts_should_player_create_trigs( player );
+	}
 }
 
 //quotes skip for Richtofen Trample Steams
