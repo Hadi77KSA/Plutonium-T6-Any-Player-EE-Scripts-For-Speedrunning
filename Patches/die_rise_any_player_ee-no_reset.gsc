@@ -279,6 +279,7 @@ custom_pts_putdown_trigs_create_for_spot( s_lion_spot, player )
 //once a player flings a ball, makes sure that each player already carrying a ball keeps the ability to place it on the sets of already-placed Trample Steams.
 pts_putdown_trigs_fix()
 {
+	a_players = getPlayers();
 	foreach ( player in a_players )
 	{
 		if ( is_true( player.zm_sq_has_ball ) )
