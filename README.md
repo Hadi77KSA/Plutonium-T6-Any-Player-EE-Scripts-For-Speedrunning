@@ -1,6 +1,12 @@
 # Plutonium-T6-Any-Player-EE-Scripts-For-Speedrunning
 The following scripts allow the main Easter Egg quests to be done with any number of players—whether it is solo (1 player), duo (2 players), trio (3 players), or even more than 4 players—while aiming to be as similar to the original Easter Eggs as possible.
 ## Installation
+1. [Download this repository](https://github.com/Hadi77KSA/Plutonium-T6-Any-Player-EE-Scripts-For-Speedrunning/archive/refs/heads/main.zip).
+2. Copy the `zm_any_player_ee` folder from the zip.
+3. Navigate to `%localappdata%\Plutonium\storage\t6\mods` and paste the `zm_any_player_ee` folder in there.
+4. Start the game and load the mod through the in-game `Mods` menu.
+
+### Alternative Method
 1. Navigate to the [Releases](https://github.com/Hadi77KSA/Plutonium-T6-Any-Player-EE-Scripts-For-Speedrunning/releases/latest) page and download the script you desire.
 2. Navigate to `%localappdata%\Plutonium\storage\t6\scripts\zm`
 3. Place the files into their respective map's folder. If the map's folder doesn't exist, create it and place it into the path from step 2.
