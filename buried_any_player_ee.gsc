@@ -51,7 +51,7 @@ _are_all_players_in_time_bomb_volume_qol( e_volume )
 	if ( getPlayers().size <= 3 )
 		n_required_players = a_players.size;
 /#
-	if ( getdvarint( #"5256118F" ) > 0 )
+	if ( getdvarint( #"_id_5256118F" ) > 0 )
 		n_required_players = a_players.size;
 #/
 	n_players_in_position = 0;
