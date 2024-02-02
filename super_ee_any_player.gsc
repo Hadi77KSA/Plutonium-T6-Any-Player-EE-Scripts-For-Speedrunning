@@ -70,7 +70,7 @@ custom_sq_metagame()
 	if ( player_count > 4 ) //in case of more than 4 players, only checks the progress of 4 players
 		player_count = 4;
 /#
-	if ( getdvarint( #"FA81816F" ) >= 1 )
+	if ( getdvarint( #"_id_FA81816F" ) >= 1 )
 		player_count = 4;
 #/
 	for ( n_player = 0; n_player < player_count; n_player++ )
@@ -83,10 +83,10 @@ custom_sq_metagame()
 				n_stat_nav_value = players[n_player] maps\mp\zombies\_zm_stats::get_global_stat( a_stat_nav[n_stat] );
 			}
 /#
-			if ( getdvarint( #"FA81816F" ) >= 1 )
+			if ( getdvarint( #"_id_FA81816F" ) >= 1 )
 			{
-				n_stat_value = getdvarint( #"FA81816F" );
-				n_stat_nav_value = getdvarint( #"FA81816F" );
+				n_stat_value = getdvarint( #"_id_FA81816F" );
+				n_stat_nav_value = getdvarint( #"_id_FA81816F" );
 			}
 #/
 			if ( n_stat_value == 1 )
