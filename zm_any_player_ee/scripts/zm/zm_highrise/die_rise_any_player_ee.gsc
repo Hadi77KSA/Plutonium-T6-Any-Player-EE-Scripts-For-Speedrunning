@@ -19,6 +19,7 @@ main()
 init()
 {
 	thread onPlayerConnect();
+	thread buildNavcard();
 }
 
 onPlayerConnect()
@@ -28,6 +29,15 @@ onPlayerConnect()
 		level waittill( "connected", player );
 		player iPrintLn( "^2Any Player EE Mod ^5Die Rise" );
 	}
+}
+
+//Force build navcard table
+buildNavcard()
+{
+	flag_wait( "initial_players_connected" );
+	players = getPlayers();
+	foreach ( player in players )
+				player maps\mp\zombies\_zm_stats::set_global_stat( "sq_highrise_started", 1 );
 }
 
 //Elevator Stand step
