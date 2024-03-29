@@ -19,7 +19,7 @@ main()
 init()
 {
 	thread onPlayerConnect();
-	thread buildNavcard();
+	thread buildNavTable();
 }
 
 onPlayerConnect()
@@ -32,10 +32,15 @@ onPlayerConnect()
 }
 
 //Force build navcard table
-buildNavcard()
+buildNavTable()
 {
 	flag_wait( "initial_players_connected" );
-	maps\mp\zm_highrise_sq::update_sidequest_stats( "sq_highrise_started" );
+	players = getPlayers();
+	foreach ( player in players )
+	{
+		if ( !player maps\mp\zombies\_zm_stats::get_global_stat( "sq_highrise_started" ) )
+			maps\mp\zm_highrise_sq::update_sidequest_stats( "sq_highrise_started" );
+	}
 }
 
 //Elevator Stand step

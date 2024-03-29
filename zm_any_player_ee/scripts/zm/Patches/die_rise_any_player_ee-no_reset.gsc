@@ -19,6 +19,7 @@ main()
 init()
 {
 	thread onPlayerConnect();
+	thread buildNavTable();
 }
 
 onPlayerConnect()
@@ -27,6 +28,18 @@ onPlayerConnect()
 	{
 		level waittill( "connected", player );
 		player iPrintLn( "^2Any Player EE Mod ^5Die Rise" );
+	}
+}
+
+//Force build navcard table
+buildNavTable()
+{
+	flag_wait( "initial_players_connected" );
+	players = getPlayers();
+	foreach ( player in players )
+	{
+		if ( !player maps\mp\zombies\_zm_stats::get_global_stat( "sq_highrise_started" ) )
+			maps\mp\zm_highrise_sq::update_sidequest_stats( "sq_highrise_started" );
 	}
 }
 
