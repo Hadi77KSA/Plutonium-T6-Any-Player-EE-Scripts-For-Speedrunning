@@ -35,9 +35,7 @@ onPlayerConnect()
 buildNavcard()
 {
 	flag_wait( "initial_players_connected" );
-	players = getPlayers();
-	foreach ( player in players )
-				player maps\mp\zombies\_zm_stats::set_global_stat( "sq_highrise_started", 1 );
+	maps\mp\zm_highrise_sq::update_sidequest_stats( "sq_highrise_started" );
 }
 
 //Elevator Stand step
