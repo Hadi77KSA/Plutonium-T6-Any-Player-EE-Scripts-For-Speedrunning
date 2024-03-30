@@ -10,7 +10,7 @@ init()
 		foreach ( player in players )
 		{
 			// Handles buidling the NAV Table
-			if ( !player maps\mp\zombies\_zm_stats::get_global_stat( mapName + "_started" ) )
+			if ( !player maps\mp\zombies\_zm_stats::get_global_stat( "sq_" + getSubStr( mapName, 3 ) + "_started" ) )
 				[[ getFunction( "maps/mp/" + mapName + "_sq", "update_sidequest_stats" ) ]]( "sq_" + getSubStr( mapName, 3 ) + "_started" );
 
 			// Handles applying the Navcards
