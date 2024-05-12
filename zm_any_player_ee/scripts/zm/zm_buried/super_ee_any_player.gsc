@@ -17,8 +17,14 @@ onPlayerConnect()
 	while ( true )
 	{
 		level waittill( "connected", player );
-		player iPrintLn( "^2Any Player EE Mod ^5Super Easter Egg" );
+		player thread display_mod_message();
 	}
+}
+
+display_mod_message()
+{
+	flag_wait( "initial_players_connected" );
+	self iPrintLn( "^2Any Player EE Mod ^5Super Easter Egg" );
 }
 
 custom_sq_metagame()
