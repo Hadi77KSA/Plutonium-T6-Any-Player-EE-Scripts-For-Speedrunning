@@ -14,11 +14,19 @@ init()
 
 onPlayerConnect()
 {
-	while ( true )
+	for (;;)
 	{
 		level waittill( "connected", player );
-		player iPrintLn( "^2Any Player EE Mod ^5Super Easter Egg" );
+		player thread display_mod_message();
 	}
+}
+
+display_mod_message()
+{
+	self endon( "disconnect" );
+
+	flag_wait( "initial_players_connected" );
+	self iPrintLn( "^2Any Player EE Mod ^5Super Easter Egg" );
 }
 
 custom_sq_metagame()
@@ -73,6 +81,7 @@ custom_sq_metagame()
 	if ( getdvarint( #"zombie_cheat" ) >= 1 )
 		player_count = 4;
 #/
+
 	for ( n_player = 0; n_player < player_count; n_player++ )
 	{
 		for ( n_stat = 0; n_stat < a_stat.size; n_stat++ )
@@ -82,6 +91,7 @@ custom_sq_metagame()
 				n_stat_value = players[n_player] maps\mp\zombies\_zm_stats::get_global_stat( a_stat[n_stat] );
 				n_stat_nav_value = players[n_player] maps\mp\zombies\_zm_stats::get_global_stat( a_stat_nav[n_stat] );
 			}
+
 /#
 			if ( getdvarint( #"zombie_cheat" ) >= 1 )
 			{
@@ -89,6 +99,7 @@ custom_sq_metagame()
 				n_stat_nav_value = getdvarint( #"zombie_cheat" );
 			}
 #/
+
 			if ( n_stat_value == 1 )
 			{
 				m_endgame_machine sq_metagame_machine_set_light( n_player, n_stat, "sq_bulb_blue" );
@@ -119,9 +130,7 @@ custom_sq_metagame()
 		return;
 
 	m_endgame_machine.activate_trig = spawn( "trigger_radius", m_endgame_machine.origin, 0, 128, 72 );
-
 	m_endgame_machine.activate_trig waittill( "trigger" );
-
 	m_endgame_machine.activate_trig delete();
 	m_endgame_machine.activate_trig = undefined;
 	level setclientfield( "buried_sq_egm_animate", 1 );
@@ -130,9 +139,7 @@ custom_sq_metagame()
 	m_endgame_machine.endgame_trig sethintstring( &"ZM_BURIED_SQ_EGM_BUT" );
 	m_endgame_machine.endgame_trig triggerignoreteam();
 	m_endgame_machine.endgame_trig usetriggerrequirelookat();
-
 	m_endgame_machine.endgame_trig waittill( "trigger" );
-
 	m_endgame_machine.endgame_trig delete();
 	m_endgame_machine.endgame_trig = undefined;
 	level thread sq_metagame_clear_tower_pieces();
