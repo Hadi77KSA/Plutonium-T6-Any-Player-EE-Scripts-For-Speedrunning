@@ -19,12 +19,13 @@ main()
 init()
 {
 	thread onPlayerConnect();
-	thread buildNavTable();
+	if ( set_dvar_int_if_unset( "any_player_ee_highrise_nav", "1" ) )
+		thread buildNavTable();
 }
 
 onPlayerConnect()
 {
-	while ( true )
+	for (;;)
 	{
 		level waittill( "connected", player );
 		player thread display_mod_message();
@@ -33,6 +34,8 @@ onPlayerConnect()
 
 display_mod_message()
 {
+	self endon( "disconnect" );
+
 	flag_wait( "initial_players_connected" );
 	self iPrintLn( "^2Any Player EE Mod ^5Die Rise" );
 }
@@ -68,6 +71,7 @@ custom_sq_atd_elevators()
 		flag_wait_any_array( a_elevator_flags );
 		wait 0.5;
 	}
+
 /#
 	iprintlnbold( "Standing on Elevators Complete" );
 #/
@@ -197,9 +201,7 @@ custom_get_number_of_players()
 custom_place_ball_think( t_place_ball, s_lion_spot )
 {
 	t_place_ball endon( "delete" );
-
 	t_place_ball waittill( "trigger" );
-
 	a_players = getPlayers();
 	if ( a_players.size > 3 )
 	{
@@ -239,6 +241,66 @@ pts_should_placing_ball_create_trigs( s_lion_spot_used, player )
 	{
 		if ( isdefined( s_lion_spot.springpad ) && s_lion_spot != s_lion_spot_used && s_lion_spot.springpad_buddy != s_lion_spot_used )
 			pts_putdown_trigs_create_for_spot( s_lion_spot, player );
+	}
+}
+
+//quotes skip for Richtofen Trample Steams
+custom_springpad_count_watcher( is_generator )
+{
+	level endon( "sq_pts_springad_count4" );
+	str_which_spots = "pts_ghoul";
+
+	if ( is_generator )
+		str_which_spots = "pts_lion";
+
+	a_spots = getstructarray( str_which_spots, "targetname" );
+
+	while ( true )
+	{
+		level waittill( "sq_pts_springpad_in_place" );
+
+		n_count = 0;
+
+		foreach ( s_spot in a_spots )
+		{
+			if ( isdefined( s_spot.springpad ) )
+				n_count++;
+		}
+
+		level notify( "sq_pts_springad_count" + n_count );
+
+		n_players = custom_get_number_of_players();
+		if ( !is_generator && n_count >= n_players )
+		{
+			while ( n_count < 4 )
+			{
+				wait 10;
+				n_count++;
+				level notify( "sq_pts_springad_count" + n_count );
+			}
+		}
+	}
+}
+
+//makes Richtofen Trample Steam step require as many as players
+custom_wait_for_all_springpads_placed( str_type, str_flag )
+{
+	a_spots = getstructarray( str_type, "targetname" );
+
+	while ( !flag( str_flag ) )
+	{
+		is_clear = 0;
+
+		foreach ( s_spot in a_spots )
+		{
+			if ( !isdefined( s_spot.springpad ) )
+				is_clear++;
+		}
+
+		if ( !( is_clear > ( 4 - custom_get_number_of_players() ) ) )
+			flag_set( str_flag );
+
+		wait 1;
 	}
 }
 
@@ -290,61 +352,4 @@ custom_pts_putdown_trigs_create_for_spot( s_lion_spot, player )
 
 	s_lion_spot.pts_putdown_trigs[player.characterindex] = t_place_ball;
 	level thread pts_putdown_trigs_springpad_delete_watcher( player, s_lion_spot );
-}
-
-//quotes skip for Richtofen Trample Steams
-custom_springpad_count_watcher( is_generator )
-{
-	level endon( "sq_pts_springad_count4" );
-	str_which_spots = "pts_ghoul";
-
-	if ( is_generator )
-		str_which_spots = "pts_lion";
-
-	a_spots = getstructarray( str_which_spots, "targetname" );
-
-	while ( true )
-	{
-		level waittill( "sq_pts_springpad_in_place" );
-
-		n_count = 0;
-
-		foreach ( s_spot in a_spots )
-		{
-			if ( isdefined( s_spot.springpad ) )
-				n_count++;
-		}
-
-		level notify( "sq_pts_springad_count" + n_count );
-
-		n_players = custom_get_number_of_players();
-		while ( !is_generator && n_count >= n_players && n_count < 4 )
-		{
-			wait 7;
-			n_count++;
-			level notify( "sq_pts_springad_count" + n_count );
-		}
-	}
-}
-
-//makes Richtofen Trample Steam step require as many as players
-custom_wait_for_all_springpads_placed( str_type, str_flag )
-{
-	a_spots = getstructarray( str_type, "targetname" );
-
-	while ( !flag( str_flag ) )
-	{
-		is_clear = 0;
-
-		foreach ( s_spot in a_spots )
-		{
-			if ( !isdefined( s_spot.springpad ) )
-				is_clear++;
-		}
-
-		if ( !( is_clear > ( 4 - custom_get_number_of_players() ) ) )
-			flag_set( str_flag );
-
-		wait 1;
-	}
 }

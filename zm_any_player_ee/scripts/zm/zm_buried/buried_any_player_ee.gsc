@@ -21,7 +21,7 @@ init()
 
 onPlayerConnect()
 {
-	while ( true )
+	for (;;)
 	{
 		level waittill( "connected", player );
 		player thread display_mod_message();
@@ -30,6 +30,8 @@ onPlayerConnect()
 
 display_mod_message()
 {
+	self endon( "disconnect" );
+
 	flag_wait( "initial_players_connected" );
 	self iPrintLn( "^2Any Player EE Mod ^5Buried" );
 }
@@ -109,7 +111,7 @@ buried_maxis_wisp()
 
 	if ( getPlayers().size <= 2 )
 	{
-		while ( true )
+		for (;;)
 		{
 			if ( self.n_sq_energy <= 20 )
 				self.n_sq_energy += 20;

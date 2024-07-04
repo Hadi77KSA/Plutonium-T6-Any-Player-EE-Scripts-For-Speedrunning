@@ -1,20 +1,39 @@
 # Plutonium-T6-Any-Player-EE-Scripts-For-Speedrunning
 The following scripts allow the main Easter Egg quests to be done with any number of players—whether it is solo (1 player), duo (2 players), trio (3 players), or even more than 4 players—while aiming to be as similar to the original Easter Eggs as possible.
 ## Installation
-1. [Download this repository](https://github.com/Hadi77KSA/Plutonium-T6-Any-Player-EE-Scripts-For-Speedrunning/archive/refs/heads/main.zip).
-2. Copy the `zm_any_player_ee` folder from the zip.
-3. Navigate to `%localappdata%\Plutonium\storage\t6\mods` and paste the `zm_any_player_ee` folder in there.
-4. Start the game and load the mod through the in-game `Mods` menu.
+1. [Download the repository](https://github.com/Hadi77KSA/Plutonium-T6-Any-Player-EE-Scripts-For-Speedrunning/archive/refs/heads/main.zip).
+2. Extract the `zm_any_player_ee` folder from the ZIP file that was downloaded.
+3. Go to `%localappdata%\Plutonium\storage\t6` by pressing Win+R then pasting the mentioned path then pressing OK, and open the `mods` folder. If the `mods` folder does not exist, create it.
+4. Move the `zm_any_player_ee` folder to inside the `mods` folder.
+5. Start the game and load the mod through the in-game `Mods` menu.
 
-### Alternative Method
+#### Patches
+Can be found in `zm_any_player_ee\scripts\zm\Patches`
+* `die_rise_any_player_ee-no_reset.gsc` to avoid conflict, not to be used with `die_rise_any_player_ee.gsc`
+The file goes in `scripts\zm\zm_highrise`
+This version makes the floor symbols not reset once an incorrect symbol is stepped on.
+* `buried_body_fix.gsc` can be used along with `buried_any_player_ee.gsc`
+The file goes in `scripts\zm\zm_buried`
+This patch makes the bodies on the round infinity step on the Richtofen side have the switch on the first 3 bodies searched. This patch was provided due to a bug that sometimes doesn't make all bodies spawn in.
+* `nav_autocomplete.gsc` to go in `scripts\zm`
+This patch builds the Nav Table on the current Victis map and applies the Navcards to all maps for all players.
+
+### Alternative Installation Methods
+Following any of these methods makes the scripts be loaded automatically without needing to select the mod from the in-game `Mods` menu.
+#### Complete Scripts Folder
+- Follow steps 1 & 2 from the main installation instructions.
+- Go to `%localappdata%\Plutonium\storage\t6` by pressing Win+R then pasting the mentioned path then press OK.
+- Open the `zm_any_player_ee` folder and copy the `scripts` folder from inside of it.
+- Paste the `scripts` folder into the `t6` folder.
+
+#### Individual Files
 1. Navigate to the [Releases](https://github.com/Hadi77KSA/Plutonium-T6-Any-Player-EE-Scripts-For-Speedrunning/releases/latest) page and download the script you desire.
 2. Navigate to `%localappdata%\Plutonium\storage\t6\scripts\zm`
-3. Place the files into their respective map's folder. If the map's folder doesn't exist, create it and place it into the path from step 2.
-- TranZit's scripts go to `zm_transit`
-- Die Rise's scripts go to `zm_highrise`
-- Buried's scripts go to `zm_buried`
-- `super_ee_any_player.gsc` goes to `zm_buried`
-
+3. Place the files into their respective map's folder. If the map's folder does not exist, create it and place it into the path from step 2.
+- TranZit's scripts go to `scripts\zm\zm_transit`
+- Die Rise's scripts go to `scripts\zm\zm_highrise`
+- Buried's scripts go to `scripts\zm\zm_buried`
+- `super_ee_any_player.gsc` goes to `scripts\zm\zm_buried`
 ## Features
 ### TranZit
 Uses CCDeroga's mod to allow the Maxis side to be completable in solo.  
@@ -26,6 +45,12 @@ Script "scripts/zm/zm_transit/tranzit_maxis_solo.gsc" loaded successfully
 Only require 1 Turbine if the match was started as a solo match.
 
 ### Die Rise
+#### - Nav Table
+The script by default will automatically build the Nav Table if it is not already built. To prevent this, the person hosting will need to [open the console](https://plutonium.pw/docs/opening-console/) and execute the following command:
+```
+set any_player_ee_highrise_nav "0"
+```
+
 #### - Elevators Step and Dragon Puzzle
 Require the same amount as the number of players.  
 If the Dragon Puzzle step is failed, it will reset back to require the same amount as the number of players.
@@ -48,7 +73,7 @@ For less than 3p, wisp will no longer rely on zombies getting near it.
 For less than 3p, time limit will be removed. Will only reset if it is failed.
 
 #### b) Richtofen Side
-##### - Round Infinity A.K.A the Time Bomb Step
+##### - Round Infinity A.K.A. the Time Bomb Step
 On 4p or less, requires all players in the lobby to be near the location of the Time Bomb.  
 If the number of players is greater than 4, the step will only work if 4 players are near the location, no more no less, exactly how it works without the mod.
 
