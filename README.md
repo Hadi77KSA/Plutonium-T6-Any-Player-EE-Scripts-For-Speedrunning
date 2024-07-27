@@ -36,13 +36,8 @@ Following any of these methods makes the scripts be loaded automatically without
 - `super_ee_any_player.gsc` goes to `scripts\zm\zm_buried`
 ## Features
 ### TranZit
-Uses CCDeroga's mod to allow the Maxis side to be completable in solo.  
-Note that it does not show a message in-game indicating it is loaded once the map is started. To determine if it has been loaded successfully, either go through the Easter Egg and perform a step and listen out for the quotes, or check the Plutonium bootstrapper window for if it says the following line when the map is started:
-```
-Script "scripts/zm/zm_transit/tranzit_maxis_solo.gsc" loaded successfully
-```
 #### - Tower Step and Lamp Post Step for the Maxis Side
-Only require 1 Turbine if the match was started as a solo match.
+For solo, only require 1 Turbine.
 
 ### Die Rise
 #### - Nav Table
@@ -96,7 +91,7 @@ For more than 4 players, the mod will only use the player progress that is shown
 A: Depends on the number of players and which maps and side you choose. The host is required to have the mods installed. The following shows the required files:
   - 1p:-
     - TranZit Maxis:
-      - `tranzit_maxis_solo.gsc`
+      - `tranzit_any_player_ee.gsc`
     - Die Rise: `die_rise_any_player_ee.gsc`
     - Buried: `buried_any_player_ee.gsc`
     - Super EE: `super_ee_any_player.gsc`

@@ -19,6 +19,7 @@ main()
 init()
 {
 	thread onPlayerConnect();
+
 	if ( set_dvar_int_if_unset( "any_player_ee_highrise_nav", "1" ) )
 		thread buildNavTable();
 }
@@ -35,7 +36,6 @@ onPlayerConnect()
 display_mod_message()
 {
 	self endon( "disconnect" );
-
 	flag_wait( "initial_players_connected" );
 	self iPrintLn( "^2Any Player EE Mod ^5Die Rise" );
 }
@@ -45,6 +45,7 @@ buildNavTable()
 {
 	flag_wait( "initial_players_connected" );
 	players = getPlayers();
+
 	foreach ( player in players )
 	{
 		if ( !player maps\mp\zombies\_zm_stats::get_global_stat( "sq_highrise_started" ) )
@@ -186,6 +187,7 @@ custom_drg_puzzle_trig_think( n_order_id )
 custom_get_number_of_players()
 {
 	n_players = getPlayers().size;
+
 	if ( n_players > 4 )
 		n_players = 4;
 
@@ -201,11 +203,13 @@ custom_place_ball_think( t_place_ball, s_lion_spot )
 	t_place_ball endon( "delete" );
 	t_place_ball waittill( "trigger" );
 	a_players = getPlayers();
+
 	if ( a_players.size > 3 )
 	{
 		pts_putdown_trigs_remove_for_spot( s_lion_spot );
 		pts_putdown_trigs_remove_for_spot( s_lion_spot.springpad_buddy );
 	}
+
 	self.zm_sq_has_ball = undefined;
 	s_lion_spot.which_ball = self.which_ball;
 	self notify( "zm_sq_ball_used" );
@@ -256,7 +260,6 @@ custom_springpad_count_watcher( is_generator )
 	while ( true )
 	{
 		level waittill( "sq_pts_springpad_in_place" );
-
 		n_count = 0;
 
 		foreach ( s_spot in a_spots )
@@ -266,8 +269,8 @@ custom_springpad_count_watcher( is_generator )
 		}
 
 		level notify( "sq_pts_springad_count" + n_count );
-
 		n_players = custom_get_number_of_players();
+
 		if ( !is_generator && n_count >= n_players )
 		{
 			while ( n_count < 4 )
@@ -306,11 +309,11 @@ custom_wait_for_all_springpads_placed( str_type, str_flag )
 custom_pts_should_player_create_trigs( player )
 {
 	a_lion_spots = getstructarray( "pts_lion", "targetname" );
-	players = getPlayers();
+	n_players = getPlayers().size;
 
 	foreach ( s_lion_spot in a_lion_spots )
 	{
-		if ( isdefined( s_lion_spot.springpad ) && ( isdefined( s_lion_spot.springpad_buddy.springpad ) || players.size == 1 || ( players.size == 3 && flag( "pts_2_generator_1_started" ) ) ) )
+		if ( isdefined( s_lion_spot.springpad ) && ( isdefined( s_lion_spot.springpad_buddy.springpad ) || n_players == 1 || ( n_players == 3 && flag( "pts_2_generator_1_started" ) ) ) )
 			pts_putdown_trigs_create_for_spot( s_lion_spot, player );
 	}
 }
@@ -318,7 +321,8 @@ custom_pts_should_player_create_trigs( player )
 //on the Maxis side if the player is playing solo or 3p, once a player places a Trample Steam correctly, gives each player already carrying a ball the ability to place it without needing a Trample Steam on the opposite end. On 3p, this is executed if the Trample Steam is placed while there's already a ball flinging.
 custom_pts_should_springpad_create_trigs( s_lion_spot )
 {
-	if ( isdefined( s_lion_spot.springpad ) && ( isdefined( s_lion_spot.springpad_buddy.springpad ) || getPlayers().size == 1 || ( getPlayers().size == 3 && flag( "pts_2_generator_1_started" ) ) ) )
+	n_players = getPlayers().size;
+	if ( isdefined( s_lion_spot.springpad ) && ( isdefined( s_lion_spot.springpad_buddy.springpad ) || n_players == 1 || ( n_players == 3 && flag( "pts_2_generator_1_started" ) ) ) )
 	{
 		a_players = getplayers();
 
@@ -327,6 +331,7 @@ custom_pts_should_springpad_create_trigs( s_lion_spot )
 			if ( isdefined( player.zm_sq_has_ball ) && player.zm_sq_has_ball )
 			{
 				pts_putdown_trigs_create_for_spot( s_lion_spot, player );
+
 				if ( isdefined( s_lion_spot.springpad_buddy.springpad ) )
 					pts_putdown_trigs_create_for_spot( s_lion_spot.springpad_buddy, player );
 			}
