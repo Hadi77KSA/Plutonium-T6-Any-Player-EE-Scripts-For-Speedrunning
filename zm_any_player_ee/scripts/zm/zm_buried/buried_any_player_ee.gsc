@@ -31,7 +31,6 @@ onPlayerConnect()
 display_mod_message()
 {
 	self endon( "disconnect" );
-
 	flag_wait( "initial_players_connected" );
 	self iPrintLn( "^2Any Player EE Mod ^5Buried" );
 }
@@ -132,6 +131,7 @@ custom_sq_bp_set_current_bulb( str_tag )
 
 	level.m_sq_bp_active_light = sq_bp_light_on( str_tag, "yellow" );
 	level.str_sq_bp_active_light = str_tag;
+
 	if ( getPlayers().size > 2 )
 	{
 		wait 10;
@@ -145,8 +145,10 @@ new_ows_target_delete_timer()
 	wait 4;
 	self notify( "ows_target_timeout" );
 	level.targets_allowed_to_be_missed--;
+
 	if ( level.targets_allowed_to_be_missed < 0 )
 		flag_set( "sq_ows_target_missed" );
+
 /#
 	iprintlnbold( "missed target! step failed. target @ " + self.origin );
 #/

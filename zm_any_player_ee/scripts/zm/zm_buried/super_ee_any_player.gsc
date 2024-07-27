@@ -24,7 +24,6 @@ onPlayerConnect()
 display_mod_message()
 {
 	self endon( "disconnect" );
-
 	flag_wait( "initial_players_connected" );
 	self iPrintLn( "^2Any Player EE Mod ^5Super Easter Egg" );
 }
@@ -75,8 +74,10 @@ custom_sq_metagame()
 	sq_metagame_clear_lights();
 	players = get_players();
 	player_count = players.size;
+
 	if ( player_count > 4 ) //in case of more than 4 players, only checks the progress of 4 players
 		player_count = 4;
+
 /#
 	if ( getdvarint( #"zombie_cheat" ) >= 1 )
 		player_count = 4;

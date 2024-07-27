@@ -1,6 +1,7 @@
 init()
 {
 	mapName = getdvar( "mapname" );
+
 	if ( mapName == "zm_transit" || mapName == "zm_highrise" || mapName == "zm_buried" )
 	{
 		a_stat = array( "sq_transit_started", "sq_highrise_started", "sq_buried_started", "navcard_applied_zm_transit", "navcard_applied_zm_highrise", "navcard_applied_zm_buried" );
