@@ -44,9 +44,8 @@ display_mod_message()
 buildNavTable()
 {
 	flag_wait( "initial_players_connected" );
-	players = getPlayers();
 
-	foreach ( player in players )
+	foreach ( player in getPlayers() )
 	{
 		if ( !player maps\mp\zombies\_zm_stats::get_global_stat( "sq_highrise_started" ) )
 			maps\mp\zm_highrise_sq::update_sidequest_stats( "sq_highrise_started" );
@@ -204,9 +203,9 @@ custom_place_ball_think( t_place_ball, s_lion_spot )
 {
 	t_place_ball endon( "delete" );
 	t_place_ball waittill( "trigger" );
-	a_players = getPlayers();
+	n_players = getPlayers().size;
 
-	if ( a_players.size > 3 )
+	if ( n_players > 3 )
 	{
 		pts_putdown_trigs_remove_for_spot( s_lion_spot );
 		pts_putdown_trigs_remove_for_spot( s_lion_spot.springpad_buddy );
@@ -226,9 +225,9 @@ custom_place_ball_think( t_place_ball, s_lion_spot )
 	s_lion_spot.springpad thread pts_springpad_fling( s_lion_spot.script_noteworthy, s_lion_spot.springpad_buddy.springpad );
 	self.t_putdown_ball delete();
 
-	if ( a_players.size == 3 )
+	if ( n_players == 3 )
 	{
-		foreach ( player in a_players )
+		foreach ( player in getPlayers() )
 		{
 			if ( isdefined( player.zm_sq_has_ball ) && player.zm_sq_has_ball )
 				pts_should_placing_ball_create_trigs( s_lion_spot, player );
@@ -324,6 +323,7 @@ custom_pts_should_player_create_trigs( player )
 custom_pts_should_springpad_create_trigs( s_lion_spot )
 {
 	n_players = getPlayers().size;
+
 	if ( isdefined( s_lion_spot.springpad ) && ( isdefined( s_lion_spot.springpad_buddy.springpad ) || n_players == 1 || ( n_players == 3 && flag( "pts_2_generator_1_started" ) ) ) )
 	{
 		a_players = getplayers();
