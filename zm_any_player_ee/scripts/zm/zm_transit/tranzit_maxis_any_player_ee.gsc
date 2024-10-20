@@ -26,7 +26,7 @@ display_mod_message()
 {
 	self endon( "disconnect" );
 	flag_wait( "initial_players_connected" );
-	self iPrintLn( "^2Any Player EE Mod ^5TranZit" );
+	self iPrintLn( "^2Any Player EE Mod ^5TranZit Maxis" );
 }
 
 custom_maxis_sidequest_b()
