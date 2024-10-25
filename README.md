@@ -115,7 +115,7 @@ A: Likely a vanilla game issue, especially if the Turbine begins not emitting po
 A: Vanilla game problem. You need to make sure the Nav Table is fully built.
 
 ### - Q: On Die Rise, why is the Ballistic Knife step not completing even though Maxis said his quote about reincarnation, and the Ballistic Knife is upgraded and is shot into the Buddha room?
-A: Vanilla game problem. The player shooting the Ballistic Knife must not have a melee weapon (Bowie Knife, Galvaknuckles) nor have bled out (includes, even while having Who's Who, falling off the map and getting crushed). To fix this, either get another player—who does not have a melee weapon nor has bled out—to do the step, or if the player has a melee weapon but has not bled out, make them get rid of the melee weapon by downing while having Who's Who and letting their original self disappear.
+A: Vanilla game problem. The player shooting the Ballistic Knife must not have a melee weapon (Bowie Knife, Galvaknuckles) nor have bled out, which includes falling off the map and getting crushed with the exception of doing so while having Who's Who or solo Quick Revive. To fix this, either get another player—who does not have a melee weapon nor has bled out—to do the step, or if the player has a melee weapon but has not bled out, make them get rid of the melee weapon by downing while having Who's Who and letting their original self disappear.
 
 ## Credits
 - CCDeroga: [TranZit Maxis mod](https://forum.plutonium.pw/topic/15338/zm-release-solo-maxis-tranzit), [Buried Maxis mod](https://forum.plutonium.pw/topic/15604/release-zm-buried-maxis-solo-ee).
