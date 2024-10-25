@@ -37,8 +37,7 @@ display_mod_message()
 
 playertracker_onlast_step()
 {
-	players = getPlayers();
-	switch ( players.size )
+	switch ( getPlayers().size )
 	{
 		case 1:
 			level.targets_allowed_to_be_missed = 64; // Total (84) - ( Candy Shop (20) )
@@ -55,8 +54,10 @@ _are_all_players_in_time_bomb_volume_qol( e_volume )
 {
 	n_required_players = 4;
 	a_players = get_players();
-	if ( getPlayers().size <= 3 )
+
+	if ( a_players.size < 4 )
 		n_required_players = a_players.size;
+
 /#
 	if ( getdvarint( #"_id_5256118F" ) > 0 )
 		n_required_players = a_players.size;
@@ -108,7 +109,7 @@ buried_maxis_wisp()
 {
 	self endon( "death" );
 
-	if ( getPlayers().size <= 2 )
+	if ( getPlayers().size < 3 )
 	{
 		for (;;)
 		{

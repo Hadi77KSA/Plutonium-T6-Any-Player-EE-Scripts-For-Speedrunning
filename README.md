@@ -91,7 +91,7 @@ For more than 4 players, the mod will only use the player progress that is shown
 A: Depends on the number of players and which maps and side you choose. The host is required to have the mods installed. The following shows the required files:
   - 1p:-
     - TranZit Maxis:
-      - `tranzit_any_player_ee.gsc`
+      - `tranzit_maxis_any_player_ee.gsc`
     - Die Rise: `die_rise_any_player_ee.gsc`
     - Buried: `buried_any_player_ee.gsc`
     - Super EE: `super_ee_any_player.gsc`
@@ -109,7 +109,7 @@ A: Depends on the number of players and which maps and side you choose. The host
     - Super EE: `super_ee_any_player.gsc`
 
 ### - Q: On TranZit, should I worry that Maxis says the Turbine does not have enough power shortly after placing the Turbine under the tower?
-A: Likely a vanilla game issue, especially if the Turbine begins not emitting power. If the Turbine is emitting power, then you probably should not worry.
+A: Likely a vanilla game issue, especially if the Turbine begins not emitting power. If the Turbine is emitting power, then you probably should not worry. Wait at least 6 seconds after placing the Turbine(s) before killing the Avogadro just to be safe.
 
 ### - Q: On Die Rise, why is the elevator step not completing even though we are standing on enough elevator symbols?
 A: Vanilla game problem. You need to make sure the Nav Table is fully built.
