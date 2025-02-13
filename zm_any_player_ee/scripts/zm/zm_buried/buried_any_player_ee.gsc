@@ -47,6 +47,7 @@ playertracker_onlast_step()
 			break;
 		default: //All 4 areas of the map
 			level.targets_allowed_to_be_missed = 0;
+			break;
 	}
 }
 
