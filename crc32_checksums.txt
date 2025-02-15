@@ -1,0 +1,79 @@
+zm_any_player_ee\scripts\zm\Patches\buried_body_fix.gsc
+- 0xDDBEDEF9 (1.4.2-current)
+- 0xFFEFA654 (1.3.1–1.4.1)
+- 0x44907E92 (1.2.1–1.3.0)
+
+Patches\buried_any_player_ee-body_fix.gsc
+- 0x6DC14AE8 (1.2)
+- 0xB0D3D17A
+- 0x066A80D3 (1.1.2)
+- 0xCF8863F7
+- 0xA41CCE54
+- 0x568DF4F4 (1.1.1)
+
+zm_any_player_ee\scripts\zm\Patches\die_rise_any_player_ee-no_reset.gsc
+- 0x40D123A2 (1.4.1–current)
+- 0x7F2D43AA
+- 0x4BE7BCE4 (1.4.0)
+- 0x7EBE8CC3 (1.3.1)
+- 0xA24E4912 (1.3.0)
+- 0xB71C3808 (1.2–1.2.1)
+- 0xCD233724 (1.1.2)
+- 0xD22DE5F3
+- 0xA3DABB4E (1.1.1)
+
+zm_any_player_ee\scripts\zm\Patches\nav_autocomplete.gsc
+- 0x7CB74F0C (1.4.1–current)
+- 0x86564978 (1.4.0)
+- 0xF7EA9F64 (1.3.1)
+- 0x15822B0C (1.3.0)
+- 0x2185A77F
+- 0xEEFA8398 (after 1.2.1)
+
+zm_any_player_ee\scripts\zm\zm_buried\buried_any_player_ee.gsc
+- 0x4C2200B1 (1.4.2–current)
+- 0x009B30BD (1.4.1)
+- 0xAF03CA01 (1.4.0)
+- 0xCB07CF9D (1.3.1)
+- 0x4F1BD301 (1.2–1.3.0)
+- 0xB6761AF8
+- 0x42155554 (1.1.2)
+- 0x07BBDBDC
+- 0xD35101FE
+- 0xF33EE9CB (1.1.1)
+- 0xE12A442A (1.0–1.1)
+
+zm_any_player_ee\scripts\zm\zm_buried\super_ee_any_player.gsc
+- 0x517EC41C (1.4.0–current)
+- 0x55CABDD7 (1.3.1)
+- 0x7145975A (1.2.1–1.3.0)
+- 0x8F24E14F (1.2)
+- 0x1B127A8E
+- 0x11772DB1 (1.1.2)
+- 0x7EF819F0
+- 0x122B1ACC
+- 0x656E442D (1.1.1)
+
+zm_any_player_ee\scripts\zm\zm_highrise\die_rise_any_player_ee.gsc
+- 0x0ED18774 (1.4.1–current)
+- 0x72BE77BF
+- 0xC7C5B6DA (1.4.0)
+- 0x9430461C (1.3.1)
+- 0xCE388BD8 (1.3.0)
+- 0xFDF4B54A (1.2–1.2.1)
+- 0xF0D8C61D (1.1.2)
+- 0x35E846A6
+- 0x1B7EB3F0 (1.1.1)
+- 0x5DA262F5 (1.1)
+- 0xEF681238 (1.0)
+
+zm_any_player_ee\scripts\zm\zm_transit\tranzit_maxis_any_player_ee.gsc
+- 0x028E4FEF (1.4.1–current)
+- 0xEE8CDC79
+
+zm_any_player_ee\scripts\zm\zm_transit\tranzit_any_player_ee.gsc
+- 0xD6B6B8C4 (1.4.0)
+
+zm_any_player_ee\scripts\zm\zm_transit\tranzit_maxis_solo.gsc
+- source: 0x0E66E97F (1.1.1–1.3.1)
+- compiled: 0xC1C18E08 (1.0–1.3.1)
