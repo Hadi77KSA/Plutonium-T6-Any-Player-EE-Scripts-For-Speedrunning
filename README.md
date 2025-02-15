@@ -14,7 +14,7 @@ The file goes in `scripts\zm\zm_highrise`
 This version makes the floor symbols not reset once an incorrect symbol is stepped on.
 * `buried_body_fix.gsc` can be used along with `buried_any_player_ee.gsc`  
 The file goes in `scripts\zm\zm_buried`  
-This patch makes the bodies on the round infinity step on the Richtofen side have the switch on the first 3 bodies searched. This patch was provided due to a bug that sometimes doesn't make all bodies spawn in.
+This patch makes the bodies on the round infinity step on the Richtofen side have the switch on the first 3 bodies searched.
 * `nav_autocomplete.gsc` to go in `scripts\zm`  
 This patch builds the Nav Table on the current Victis map and applies the Navcards to all maps for all players.
 
