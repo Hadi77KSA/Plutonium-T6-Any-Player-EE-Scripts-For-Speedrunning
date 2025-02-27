@@ -7,6 +7,7 @@ Patches\buried_any_player_ee-body_fix.gsc
 - 0x6DC14AE8 (1.2)
 - 0xB0D3D17A
 - 0x066A80D3 (1.1.2)
+- 0xEE2D1900
 - 0xCF8863F7
 - 0xA41CCE54
 - 0x568DF4F4 (1.1.1)
