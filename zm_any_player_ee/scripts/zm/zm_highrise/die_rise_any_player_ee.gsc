@@ -22,6 +22,14 @@ init()
 
 	if ( set_dvar_int_if_unset( "any_player_ee_highrise_nav", "1" ) )
 		thread buildNavTable();
+
+	level waittill( "sq_slb_over" );
+
+	if ( !level.richcompleted )
+		thread sq_1();
+
+	if ( !level.maxcompleted )
+		thread sq_2();
 }
 
 onPlayerConnect()
@@ -45,7 +53,7 @@ buildNavTable()
 {
 	flag_wait( "initial_players_connected" );
 
-	foreach ( player in getPlayers() )
+	foreach ( player in get_players() )
 	{
 		if ( !player maps\mp\zombies\_zm_stats::get_global_stat( "sq_highrise_started" ) )
 			maps\mp\zm_highrise_sq::update_sidequest_stats( "sq_highrise_started" );
@@ -183,9 +191,12 @@ custom_drg_puzzle_trig_think( n_order_id )
 }
 
 //returns the number of players, and if the number is greater than 4, returns 4. Used for specific steps
-custom_get_number_of_players()
+custom_get_number_of_players( is_generator )
 {
 	n_players = getPlayers().size;
+
+	if ( isdefined( is_generator ) && !is_generator )
+		n_players = level.n_players_since_rich_pts_start;
 
 	if ( n_players > 4 )
 		n_players = 4;
@@ -195,15 +206,32 @@ custom_get_number_of_players()
 
 // Trample Steam steps
 
+sq_1()
+{
+	level waittill( "sq_1_pts_1_started" );
+	level.n_players_since_rich_pts_start = get_players().size;
+
+	foreach ( player in get_players() )
+		player thread onPlayerDisconnect( 0 );
+}
+
+sq_2()
+{
+	level waittill( "sq_2_pts_2_started" );
+	level.n_players_since_maxis_pts_start = get_players().size;
+
+	foreach ( player in get_players() )
+		player thread onPlayerDisconnect( 1 );
+}
+
 //if the number of players is less than or equal to 3 and a ball is placed for the Maxis Trample Steam step, keeps the trigger to place a new ball for the Trample Steam it was placed on and the one opposite from it
 //if the number of players is 3, creates trigs for each player already carrying a ball to enable them to place the ball on the lone Trample Steam if the Trample Steam was correctly placed before the 1st ball is launched.
 custom_place_ball_think( t_place_ball, s_lion_spot )
 {
 	t_place_ball endon( "delete" );
 	t_place_ball waittill( "trigger" );
-	n_players = getPlayers().size;
 
-	if ( n_players > 3 )
+	if ( level.n_players_since_maxis_pts_start > 3 )
 	{
 		pts_putdown_trigs_remove_for_spot( s_lion_spot );
 		pts_putdown_trigs_remove_for_spot( s_lion_spot.springpad_buddy );
@@ -223,7 +251,7 @@ custom_place_ball_think( t_place_ball, s_lion_spot )
 	s_lion_spot.springpad thread pts_springpad_fling( s_lion_spot.script_noteworthy, s_lion_spot.springpad_buddy.springpad );
 	self.t_putdown_ball delete();
 
-	if ( n_players == 3 )
+	if ( level.n_players_since_maxis_pts_start == 3 )
 	{
 		foreach ( player in getPlayers() )
 		{
@@ -269,7 +297,7 @@ custom_springpad_count_watcher( is_generator )
 
 		level notify( "sq_pts_springad_count" + n_count );
 
-		if ( !is_generator && n_count >= custom_get_number_of_players() )
+		if ( !is_generator && n_count >= custom_get_number_of_players( 0 ) )
 		{
 			while ( n_count < 4 )
 			{
@@ -296,7 +324,7 @@ custom_wait_for_all_springpads_placed( str_type, str_flag )
 				is_clear++;
 		}
 
-		if ( !( is_clear > ( 4 - custom_get_number_of_players() ) ) )
+		if ( is_clear <= 4 - custom_get_number_of_players( 0 ) )
 			flag_set( str_flag );
 
 		wait 1;
@@ -307,11 +335,10 @@ custom_wait_for_all_springpads_placed( str_type, str_flag )
 custom_pts_should_player_create_trigs( player )
 {
 	a_lion_spots = getstructarray( "pts_lion", "targetname" );
-	n_players = getPlayers().size;
 
 	foreach ( s_lion_spot in a_lion_spots )
 	{
-		if ( isdefined( s_lion_spot.springpad ) && ( isdefined( s_lion_spot.springpad_buddy.springpad ) || n_players == 1 || ( n_players == 3 && flag( "pts_2_generator_1_started" ) ) ) )
+		if ( isdefined( s_lion_spot.springpad ) && ( isdefined( s_lion_spot.springpad_buddy.springpad ) || level.n_players_since_maxis_pts_start == 1 || ( level.n_players_since_maxis_pts_start == 3 && flag( "pts_2_generator_1_started" ) ) ) )
 			pts_putdown_trigs_create_for_spot( s_lion_spot, player );
 	}
 }
@@ -319,9 +346,7 @@ custom_pts_should_player_create_trigs( player )
 //on the Maxis side if the player is playing solo or 3p, once a player places a Trample Steam correctly, gives each player already carrying a ball the ability to place it without needing a Trample Steam on the opposite end. On 3p, this is executed if the Trample Steam is placed while there's already a ball flinging.
 custom_pts_should_springpad_create_trigs( s_lion_spot )
 {
-	n_players = getPlayers().size;
-
-	if ( isdefined( s_lion_spot.springpad ) && ( isdefined( s_lion_spot.springpad_buddy.springpad ) || n_players == 1 || ( n_players == 3 && flag( "pts_2_generator_1_started" ) ) ) )
+	if ( isdefined( s_lion_spot.springpad ) && ( isdefined( s_lion_spot.springpad_buddy.springpad ) || level.n_players_since_maxis_pts_start == 1 || ( level.n_players_since_maxis_pts_start == 3 && flag( "pts_2_generator_1_started" ) ) ) )
 	{
 		a_players = getplayers();
 
@@ -341,7 +366,7 @@ custom_pts_should_springpad_create_trigs( s_lion_spot )
 //if the number of players is 3 or less, once a ball is picked up, gives the ability to place a 2nd ball on a set of Trample Steams that already has a ball flinging from them for the Maxis Trample Steam step
 custom_pts_putdown_trigs_create_for_spot( s_lion_spot, player )
 {
-	if ( ( isdefined( s_lion_spot.which_ball ) || isdefined( s_lion_spot.springpad_buddy ) && isdefined( s_lion_spot.springpad_buddy.which_ball ) ) && getPlayers().size > 3 )
+	if ( level.n_players_since_maxis_pts_start >= 4 && ( isdefined( s_lion_spot.which_ball ) || isdefined( s_lion_spot.springpad_buddy ) && isdefined( s_lion_spot.springpad_buddy.which_ball ) ) )
 		return;
 
 	t_place_ball = sq_pts_create_use_trigger( s_lion_spot.origin, 16, 70, &"ZM_HIGHRISE_SQ_PUTDOWN_BALL" );
@@ -354,4 +379,14 @@ custom_pts_putdown_trigs_create_for_spot( s_lion_spot, player )
 
 	s_lion_spot.pts_putdown_trigs[player.characterindex] = t_place_ball;
 	level thread pts_putdown_trigs_springpad_delete_watcher( player, s_lion_spot );
+}
+
+onPlayerDisconnect( is_generator )
+{
+	self waittill( "disconnect" );
+
+	if ( is_generator )
+		level.n_players_since_maxis_pts_start--;
+	else
+		level.n_players_since_rich_pts_start--;
 }
