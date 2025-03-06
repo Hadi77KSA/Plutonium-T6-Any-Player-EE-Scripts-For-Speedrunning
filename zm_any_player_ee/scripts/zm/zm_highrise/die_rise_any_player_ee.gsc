@@ -23,13 +23,7 @@ init()
 	if ( set_dvar_int_if_unset( "any_player_ee_highrise_nav", "1" ) )
 		thread buildNavTable();
 
-	level waittill( "sq_slb_over" );
-
-	if ( !level.richcompleted )
-		thread sq_1();
-
-	if ( !level.maxcompleted )
-		thread sq_2();
+	thread set_n_players_at_pts_start();
 }
 
 onPlayerConnect()
@@ -58,6 +52,17 @@ buildNavTable()
 		if ( !player maps\mp\zombies\_zm_stats::get_global_stat( "sq_highrise_started" ) )
 			maps\mp\zm_highrise_sq::update_sidequest_stats( "sq_highrise_started" );
 	}
+}
+
+set_n_players_at_pts_start()
+{
+	level waittill( "sq_slb_over" );
+
+	if ( !level.richcompleted )
+		thread sq_1();
+
+	if ( !level.maxcompleted )
+		thread sq_2();
 }
 
 //Elevator Stand step
