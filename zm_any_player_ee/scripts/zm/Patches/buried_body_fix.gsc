@@ -22,6 +22,6 @@ sq_tpo_body_fix()
 			wait 0.05;
 
 		if ( common_scripts\utility::flag( "sq_tpo_special_round_active" ) )
-			level.sq_tpo.times_searched++;
+			level.sq_tpo.times_searched = 3;
 	}
 }
