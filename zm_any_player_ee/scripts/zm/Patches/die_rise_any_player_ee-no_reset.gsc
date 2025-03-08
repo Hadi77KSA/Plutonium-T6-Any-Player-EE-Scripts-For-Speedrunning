@@ -23,7 +23,7 @@ init()
 	if ( set_dvar_int_if_unset( "any_player_ee_highrise_nav", "1" ) )
 		thread buildNavTable();
 
-	thread set_n_players_at_pts_start();
+	thread handle_n_players_since_pts_start();
 }
 
 onPlayerConnect()
@@ -54,7 +54,7 @@ buildNavTable()
 	}
 }
 
-set_n_players_at_pts_start()
+handle_n_players_since_pts_start()
 {
 	level waittill( "sq_slb_over" );
 
@@ -215,11 +215,15 @@ custom_get_number_of_players( is_generator )
 
 sq_1()
 {
+	level endon( "sq_ball_picked_up" );
 	level waittill( "sq_1_pts_1_started" );
 	level.n_players_since_rich_pts_start = get_players().size;
 
 	foreach ( player in get_players() )
 		player thread onPlayerDisconnect( 0 );
+
+	level waittill( "pts_1_springpads_placed" );
+	level.n_players_since_rich_pts_start = undefined;
 }
 
 sq_2()
@@ -390,6 +394,9 @@ custom_pts_putdown_trigs_create_for_spot( s_lion_spot, player )
 
 onPlayerDisconnect( is_generator )
 {
+	if ( !is_generator )
+		level endon( "pts_1_springpads_placed" );
+
 	self waittill( "disconnect" );
 
 	if ( is_generator )
