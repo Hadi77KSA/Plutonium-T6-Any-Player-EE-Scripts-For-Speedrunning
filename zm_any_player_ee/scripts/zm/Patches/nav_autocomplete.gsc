@@ -1,20 +1,27 @@
 init()
 {
-	mapName = getdvar( "mapname" );
-
-	if ( mapName == "zm_transit" || mapName == "zm_highrise" || mapName == "zm_buried" )
+	switch ( getdvar( "mapname" ) )
 	{
-		a_stat = array( "sq_transit_started", "sq_highrise_started", "sq_buried_started", "navcard_applied_zm_transit", "navcard_applied_zm_highrise", "navcard_applied_zm_buried" );
-		common_scripts\utility::flag_wait( "initial_players_connected" );
+		case "zm_transit":
+		case "zm_highrise":
+		case "zm_buried":
+			thread setNavStatsForAllMaps();
+			break;
+	}
+}
 
-		foreach ( player in getPlayers() )
+setNavStatsForAllMaps()
+{
+	common_scripts\utility::flag_wait( "initial_players_connected" );
+	a_stat = array( "sq_transit_started", "sq_highrise_started", "sq_buried_started", "navcard_applied_zm_transit", "navcard_applied_zm_highrise", "navcard_applied_zm_buried" );
+
+	foreach ( player in getPlayers() )
+	{
+		// Handles building the NAV Tables and applying the Navcards
+		foreach ( n_stat in a_stat )
 		{
-			// Handles building the NAV Tables and applying the Navcards
-			foreach ( n_stat in a_stat )
-			{
-				if ( !player maps\mp\zombies\_zm_stats::get_global_stat( n_stat ) )
-					player maps\mp\zombies\_zm_stats::increment_client_stat( n_stat, 0 );
-			}
+			if ( !player maps\mp\zombies\_zm_stats::get_global_stat( n_stat ) )
+				player maps\mp\zombies\_zm_stats::increment_client_stat( n_stat, 0 );
 		}
 	}
 }
