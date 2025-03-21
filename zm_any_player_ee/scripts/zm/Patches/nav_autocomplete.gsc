@@ -21,7 +21,10 @@ setNavStatsForAllMaps()
 		foreach ( n_stat in a_stat )
 		{
 			if ( !player maps\mp\zombies\_zm_stats::get_global_stat( n_stat ) )
+			{
+				player maps\mp\gametypes_zm\_globallogic_score::initPersStat( n_stat, 0 );
 				player maps\mp\zombies\_zm_stats::increment_client_stat( n_stat, 0 );
+			}
 		}
 	}
 }
