@@ -16,7 +16,8 @@ main()
 
 init()
 {
-	thread onPlayerConnect();
+	if ( maps\mp\zombies\_zm_sidequests::is_sidequest_allowed( "zclassic" ) )
+		thread onPlayerConnect();
 }
 
 onPlayerConnect()
