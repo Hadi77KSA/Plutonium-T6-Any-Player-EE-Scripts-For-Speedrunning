@@ -41,7 +41,8 @@ zm_any_player_ee\scripts\zm\Patches\nav_autocomplete.gsc
 - 0xEEFA8398 (after 1.2.1)
 
 zm_any_player_ee\scripts\zm\zm_buried\buried_any_player_ee.gsc
-- 0xA3A3B3F2 (1.4.3–current)
+- 0x83D47423 (1.4.4–current)
+- 0xA3A3B3F2 (1.4.3)
 - 0x4C2200B1 (1.4.2)
 - 0x009B30BD (1.4.1)
 - 0xAF03CA01 (1.4.0)
