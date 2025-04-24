@@ -57,7 +57,8 @@ zm_any_player_ee\scripts\zm\zm_buried\buried_any_player_ee.gsc
 - 0xE12A442A (1.0–1.1)
 
 zm_any_player_ee\scripts\zm\zm_buried\super_ee_any_player.gsc
-- 0x9E9EA583 (1.4.3–current)
+- 0x42F2BE06 (1.4.4–current)
+- 0x9E9EA583 (1.4.3)
 - 0x517EC41C (1.4.0–1.4.2)
 - 0x55CABDD7 (1.3.1)
 - 0x7145975A (1.2.1–1.3.0)
@@ -88,7 +89,8 @@ zm_any_player_ee\scripts\zm\zm_highrise\die_rise_any_player_ee.gsc
 - 0xEF681238 (1.0)
 
 zm_any_player_ee\scripts\zm\zm_transit\tranzit_maxis_any_player_ee.gsc
-- 0xA54994AF (1.4.3–current)
+- 0xE46D1B7D (1.4.4–current)
+- 0xA54994AF (1.4.3)
 - 0x028E4FEF (1.4.1–1.4.2)
 - 0xEE8CDC79
 
