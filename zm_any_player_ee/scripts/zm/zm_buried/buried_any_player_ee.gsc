@@ -2,16 +2,15 @@
 #include maps\mp\zm_buried_sq_ctw;
 #include maps\mp\zm_buried_sq_ip;
 #include maps\mp\zm_buried_sq_ows;
-#include maps\mp\zm_buried_sq_tpo;
 #include maps\mp\zombies\_zm_utility;
 
 main()
 {
-	replaceFunc( ::_are_all_players_in_time_bomb_volume, ::_are_all_players_in_time_bomb_volume_qol );
-	replaceFunc( ::ctw_max_start_wisp, ::custom_ctw_max_start_wisp );
-	replaceFunc( ::sq_bp_set_current_bulb, ::custom_sq_bp_set_current_bulb );
-	replaceFunc( ::ows_target_delete_timer, ::new_ows_target_delete_timer );
-	replaceFunc( ::ows_targets_start, ::new_ows_targets_start );
+	replaceFunc( maps\mp\zm_buried_sq_tpo::_are_all_players_in_time_bomb_volume, ::_are_all_players_in_time_bomb_volume );
+	replaceFunc( maps\mp\zm_buried_sq_ctw::ctw_max_start_wisp, ::ctw_max_start_wisp );
+	replaceFunc( maps\mp\zm_buried_sq_ip::sq_bp_set_current_bulb, ::sq_bp_set_current_bulb );
+	replaceFunc( maps\mp\zm_buried_sq_ows::ows_target_delete_timer, ::ows_target_delete_timer );
+	replaceFunc( maps\mp\zm_buried_sq_ows::ows_targets_start, ::ows_targets_start );
 }
 
 init()
@@ -36,7 +35,7 @@ display_mod_message()
 	self iPrintLn( "^2Any Player EE Mod ^5Buried" );
 }
 
-playertracker_onlast_step()
+targets_allowed_to_be_missed()
 {
 	switch ( getPlayers().size )
 	{
@@ -52,7 +51,7 @@ playertracker_onlast_step()
 	}
 }
 
-_are_all_players_in_time_bomb_volume_qol( e_volume )
+_are_all_players_in_time_bomb_volume( e_volume )
 {
 	n_required_players = 4;
 	a_players = get_players();
@@ -61,7 +60,7 @@ _are_all_players_in_time_bomb_volume_qol( e_volume )
 		n_required_players = a_players.size;
 
 /#
-	if ( getdvarint( #"_id_5256118F" ) > 0 )
+	if ( getdvarint( #"zm_buried_sq_debug" ) > 0 )
 		n_required_players = a_players.size;
 #/
 	n_players_in_position = 0;
@@ -76,7 +75,7 @@ _are_all_players_in_time_bomb_volume_qol( e_volume )
 	return b_all_in_valid_position;
 }
 
-custom_ctw_max_start_wisp()
+ctw_max_start_wisp()
 {
 	nd_start = getvehiclenode( level.m_sq_start_sign.target, "targetname" );
 	vh_wisp = spawnvehicle( "tag_origin", "wisp_ai", "heli_quadrotor2_zm", nd_start.origin, nd_start.angles );
@@ -116,14 +115,14 @@ buried_maxis_wisp()
 		for (;;)
 		{
 			if ( self.n_sq_energy <= 20 )
-				self.n_sq_energy += 20;
+				self.n_sq_energy += 10;
 
 			wait 1;
 		}
 	}
 }
 
-custom_sq_bp_set_current_bulb( str_tag )
+sq_bp_set_current_bulb( str_tag )
 {
 	level endon( "sq_bp_correct_button" );
 	level endon( "sq_bp_wrong_button" );
@@ -142,7 +141,7 @@ custom_sq_bp_set_current_bulb( str_tag )
 	}
 }
 
-new_ows_target_delete_timer()
+ows_target_delete_timer()
 {
 	self endon( "death" );
 	wait 4;
@@ -157,11 +156,11 @@ new_ows_target_delete_timer()
 #/
 }
 
-new_ows_targets_start()
+ows_targets_start()
 {
 	n_cur_second = 0;
 	flag_clear( "sq_ows_target_missed" );
-	playertracker_onlast_step();
+	targets_allowed_to_be_missed();
 	level thread sndsidequestowsmusic();
 	a_sign_spots = getstructarray( "otw_target_spot", "script_noteworthy" );
 

@@ -4,8 +4,8 @@
 
 main()
 {
-	replaceFunc( ::maxis_sidequest_b, ::custom_maxis_sidequest_b );
-	replaceFunc( ::get_how_many_progressed_from, ::custom_get_how_many_progressed_from );
+	replaceFunc( maps\mp\zm_transit_sq::maxis_sidequest_b, ::maxis_sidequest_b );
+	replaceFunc( maps\mp\zm_transit_sq::get_how_many_progressed_from, ::get_how_many_progressed_from );
 }
 
 init()
@@ -30,7 +30,7 @@ display_mod_message()
 	self iPrintLn( "^2Any Player EE Mod ^5TranZit Maxis" );
 }
 
-custom_maxis_sidequest_b()
+maxis_sidequest_b()
 {
 	level endon( "power_on" );
 
@@ -57,7 +57,7 @@ custom_maxis_sidequest_b()
 	level thread maxis_sidequest_complete_check( "B_complete" );
 }
 
-custom_get_how_many_progressed_from( story, a, b )
+get_how_many_progressed_from( story, a, b )
 {
 	n_players = getPlayers().size;
 

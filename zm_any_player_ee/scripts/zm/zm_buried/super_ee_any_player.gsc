@@ -4,7 +4,7 @@
 
 main()
 {
-	replaceFunc( ::sq_metagame, ::custom_sq_metagame );
+	replaceFunc( maps\mp\zm_buried_sq::sq_metagame, ::sq_metagame );
 }
 
 init()
@@ -29,7 +29,7 @@ display_mod_message()
 	self iPrintLn( "^2Any Player EE Mod ^5Super Easter Egg" );
 }
 
-custom_sq_metagame()
+sq_metagame()
 {
 	level endon( "sq_metagame_player_connected" );
 	flag_wait( "sq_intro_vo_done" );

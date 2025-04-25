@@ -349,7 +349,7 @@ pts_should_player_create_trigs( player )
 //on the Maxis side if the player is playing solo or 3p, once a player places a Trample Steam correctly, gives each player already carrying a ball the ability to place it without needing a Trample Steam on the opposite end. On 3p, this is executed if the Trample Steam is placed while there's already a ball flinging.
 pts_should_springpad_create_trigs( s_lion_spot )
 {
-	if ( isdefined( s_lion_spot.springpad ) && ( isdefined( s_lion_spot.springpad_buddy.springpad ) || ( isdefined( level.n_players_since_maxis_pts_start ) && ( level.n_players_since_maxis_pts_start == 1 || ( level.n_players_since_maxis_pts_start == 3 && flag( "pts_2_generator_1_started" ) ) ) ) ) )
+	if ( isdefined( s_lion_spot.springpad ) && isdefined( s_lion_spot.springpad_buddy ) && ( isdefined( s_lion_spot.springpad_buddy.springpad ) || ( isdefined( level.n_players_since_maxis_pts_start ) && ( level.n_players_since_maxis_pts_start == 1 || ( level.n_players_since_maxis_pts_start == 3 && flag( "pts_2_generator_1_started" ) ) ) ) ) )
 	{
 		a_players = getplayers();
 
