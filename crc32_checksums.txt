@@ -1,5 +1,5 @@
 zm_any_player_ee\scripts\zm\Patches\buried_body_fix.gsc
-- 0xEB48378D (1.4.3-current)
+- 0xEB48378D (1.4.3-1.4.4)
 - 0x4760097D
 - 0xDDBEDEF9 (1.4.2)
 - 0xFFEFA654 (1.3.1–1.4.1)

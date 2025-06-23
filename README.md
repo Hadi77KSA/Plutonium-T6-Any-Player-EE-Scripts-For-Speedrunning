@@ -12,9 +12,9 @@ Can be found in `zm_any_player_ee\scripts\zm\Patches`
 * `die_rise_any_player_ee-no_reset.gsc` to avoid conflict, not to be used with `die_rise_any_player_ee.gsc`  
 The file goes in `scripts\zm\zm_highrise`  
 This version makes the floor symbols not reset once an incorrect symbol is stepped on.
-* `buried_body_fix.gsc` can be used along with `buried_any_player_ee.gsc`  
+* ~~`buried_body_fix.gsc` can be used along with `buried_any_player_ee.gsc`  
 The file goes in `scripts\zm\zm_buried`  
-This patch makes the bodies on the round infinity step on the Richtofen side have the switch on the first 3 bodies searched.
+This patch makes the bodies on the round infinity step on the Richtofen side have the switch on the first 3 bodies searched.~~ **Update:** ZWR has prohibited the use of the body fix patch, thus it will no longer be provided/maintained. 
 * `nav_autocomplete.gsc` to go in `scripts\zm`  
 This patch builds the Nav Tables and applies the Navcards to all maps for all players.
 
