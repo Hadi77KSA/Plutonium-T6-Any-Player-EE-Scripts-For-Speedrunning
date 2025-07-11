@@ -4,8 +4,16 @@ The following scripts allow the main Easter Egg quests to be done with any numbe
 1. [Download the latest release](https://github.com/Hadi77KSA/Plutonium-T6-Any-Player-EE-Scripts-For-Speedrunning/archive/refs/tags/current.zip).
 2. Extract the `zm_any_player_ee` folder from the ZIP file that was downloaded.
 3. Go to `%localappdata%\Plutonium\storage\t6` by pressing Win+R then pasting the mentioned path then pressing OK, and open the `mods` folder. If the `mods` folder does not exist, create it.
+
+![run window](https://github.com/user-attachments/assets/edbc54f8-f3b6-4e8e-b0bd-4b9635776aa1)
+
 4. Move the `zm_any_player_ee` folder to inside the `mods` folder.
+
+![mods folder](https://github.com/user-attachments/assets/6b4f78fe-6a0b-4e05-8881-d57988d86a37)
+
 5. Start the game and load the mod through the in-game `Mods` menu.
+
+![mods menu](https://github.com/user-attachments/assets/5475c8dc-8a4d-49d8-8301-2c96ba3e1060)
 
 #### Patches
 Can be found in `zm_any_player_ee\scripts\zm\Patches`
