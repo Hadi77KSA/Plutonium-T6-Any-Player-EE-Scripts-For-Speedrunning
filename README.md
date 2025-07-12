@@ -13,7 +13,7 @@ The following scripts allow the main Easter Egg quests to be done with any numbe
 
 5. Start the game and load the mod through the in-game `Mods` menu.
 
-![mods menu](https://github.com/user-attachments/assets/5475c8dc-8a4d-49d8-8301-2c96ba3e1060)
+![mods menu](https://github.com/user-attachments/assets/a282836f-940d-4420-bd2d-3d8219c0fc62)
 
 #### Patches
 Can be found in `zm_any_player_ee\scripts\zm\Patches`
@@ -42,6 +42,7 @@ Following any of these methods makes the scripts be loaded automatically without
 - Die Rise's scripts go to `scripts\zm\zm_highrise`
 - Buried's scripts go to `scripts\zm\zm_buried`
 - `super_any_player_ee.gsc` goes to `scripts\zm\zm_buried`
+- Origins' scripts go to `scripts\zm\zm_tomb`
 ## Features
 ### TranZit
 #### - Tower Step and Lamp Post Step for the Maxis Side
