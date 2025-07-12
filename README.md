@@ -1,7 +1,7 @@
-# Plutonium-T6-Any-Player-EE-Scripts-For-Speedrunning
+# Plutonium-T6-Any-Player-EE-Scripts
 The following scripts allow the main Easter Egg quests to be done with any number of players—whether it is solo (1 player), duo (2 players), trio (3 players), or even more than 4 players—while aiming to be as similar to the original Easter Eggs as possible.
 ## Installation
-1. [Download the latest release](https://github.com/Hadi77KSA/Plutonium-T6-Any-Player-EE-Scripts-For-Speedrunning/archive/refs/tags/current.zip).
+1. [Download the latest release](https://github.com/Hadi77KSA/Plutonium-T6-Any-Player-EE-Scripts/archive/refs/tags/current.zip).
 2. Extract the `zm_any_player_ee` folder from the ZIP file that was downloaded.
 3. Go to `%localappdata%\Plutonium\storage\t6` by pressing Win+R then pasting the mentioned path then pressing OK, and open the `mods` folder. If the `mods` folder does not exist, create it.
 
@@ -35,13 +35,13 @@ Following any of these methods makes the scripts be loaded automatically without
 - Paste the `scripts` folder into the `t6` folder.
 
 #### Individual Files
-1. Navigate to the [Releases](https://github.com/Hadi77KSA/Plutonium-T6-Any-Player-EE-Scripts-For-Speedrunning/releases/latest) page and download the script you desire.
+1. Navigate to the [Releases](https://github.com/Hadi77KSA/Plutonium-T6-Any-Player-EE-Scripts/releases/latest) page and download the script you desire.
 2. Navigate to `%localappdata%\Plutonium\storage\t6\scripts\zm`
 3. Place the files into their respective map's folder. If the map's folder does not exist, create it and place it into the path from step 2.
 - TranZit's scripts go to `scripts\zm\zm_transit`
 - Die Rise's scripts go to `scripts\zm\zm_highrise`
 - Buried's scripts go to `scripts\zm\zm_buried`
-- `super_ee_any_player.gsc` goes to `scripts\zm\zm_buried`
+- `super_any_player_ee.gsc` goes to `scripts\zm\zm_buried`
 ## Features
 ### TranZit
 #### - Tower Step and Lamp Post Step for the Maxis Side
@@ -94,27 +94,31 @@ Allows for the Super Easter Egg button to be accessible with any number of playe
 
 For more than 4 players, the mod will only use the player progress that is shown on the box.
 
+### Origins
+Spawns stone tablets near the challenge boxes for players to grab the One Inch Punch from. This allows for matches of 5+ players to be able to obtain the One Inch Punch to complete *Step 6: Wield a Fist of Iron* of the Easter Egg.
+
 ## FAQ
-### - Q: Do I/we need all of these mods to do all the Victis EEs?
+### - Q: Do I/we need all of these mods to do all the EEs?
 A: Depends on the number of players and which maps and side you choose. The host is required to have the mods installed. The following shows the required files:
   - 1p:-
     - TranZit Maxis:
       - `tranzit_maxis_any_player_ee.gsc`
     - Die Rise: `die_rise_any_player_ee.gsc`
     - Buried: `buried_any_player_ee.gsc`
-    - Super EE: `super_ee_any_player.gsc`
+    - Super EE: `super_any_player_ee.gsc`
   - 2p:-
     - Die Rise: `die_rise_any_player_ee.gsc`
     - Buried: `buried_any_player_ee.gsc`
-    - Super EE: `super_ee_any_player.gsc`
+    - Super EE: `super_any_player_ee.gsc`
   - 3p:-
     - Die Rise: `die_rise_any_player_ee.gsc`
     - Buried Richtofen:
       - `buried_any_player_ee.gsc`
-    - Super EE: `super_ee_any_player.gsc`
+    - Super EE: `super_any_player_ee.gsc`
   - 4p:- None
   - More than 4p:-
-    - Super EE: `super_ee_any_player.gsc`
+    - Super EE: `super_any_player_ee.gsc`
+    - Origins: `origins_any_player_ee.gsc`
 
 ### - Q: On TranZit, should I worry that Maxis says the Turbine does not have enough power shortly after placing the Turbine under the tower?
 A: Likely a vanilla game issue, especially if the Turbine begins not emitting power. If the Turbine is emitting power, then you probably should not worry. Wait at least 6 seconds after placing the Turbine(s) before killing the Avogadro just to be safe.
