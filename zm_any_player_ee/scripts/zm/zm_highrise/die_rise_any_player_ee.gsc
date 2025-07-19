@@ -22,9 +22,9 @@ init()
 		thread onPlayerConnect();
 
 		if ( set_dvar_int_if_unset( "any_player_ee_highrise_nav", "1" ) )
-			thread buildNavTable();
+			thread spawn_navcomputer();
 
-		thread handle_n_players_since_pts_start();
+		thread sq_pts_springad_count();
 	}
 }
 
@@ -33,11 +33,11 @@ onPlayerConnect()
 	for (;;)
 	{
 		level waittill( "connected", player );
-		player thread display_mod_message();
+		player thread msg();
 	}
 }
 
-display_mod_message()
+msg()
 {
 	self endon( "disconnect" );
 	flag_wait( "initial_players_connected" );
@@ -45,18 +45,18 @@ display_mod_message()
 }
 
 //Force build navcard table
-buildNavTable()
+spawn_navcomputer()
 {
 	flag_wait( "initial_players_connected" );
 
-	foreach ( player in get_players() )
+	for ( i = 0; i < get_players().size; i++ )
 	{
-		if ( !player maps\mp\zombies\_zm_stats::get_global_stat( "sq_highrise_started" ) )
+		if ( !get_players()[i] maps\mp\zombies\_zm_stats::get_global_stat( "sq_highrise_started" ) )
 			maps\mp\zm_highrise_sq::update_sidequest_stats( "sq_highrise_started" );
 	}
 }
 
-handle_n_players_since_pts_start()
+sq_pts_springad_count()
 {
 	flag_wait( "start_zombie_round_logic" );
 	waittillframeend;
@@ -74,12 +74,12 @@ handle_n_players_since_pts_start()
 }
 
 //returns the number of players, and if the number is greater than 4, returns 4. Used for specific steps
-custom_get_number_of_players( is_generator )
+num_player_valid( is_generator )
 {
 	n_players = getPlayers().size;
 
-	if ( isdefined( is_generator ) && !is_generator && isdefined( level.n_players_since_rich_pts_start ) )
-		n_players = level.n_players_since_rich_pts_start;
+	if ( isdefined( is_generator ) && !is_generator && isdefined( level.pts_ghoul ) )
+		n_players = level.pts_ghoul;
 
 	if ( n_players > 4 )
 		n_players = 4;
@@ -101,7 +101,7 @@ sq_atd_elevators()
 		trig_elevator thread sq_atd_watch_elevator( a_elevator_flags[i] );
 	}
 
-	while ( !standing_on_enough_elevators_check( a_elevator_flags ) )
+	while ( !sq_atd_elevator_activated( a_elevator_flags ) )
 	{
 		flag_wait_any_array( a_elevator_flags );
 		wait 0.5;
@@ -130,17 +130,17 @@ sq_atd_elevators()
 }
 
 //checks if the players are standing on enough elevators
-standing_on_enough_elevators_check( a_elevator_flags )
+sq_atd_elevator_activated( a_elevator_flags )
 {
-	n_players_standing_on_elevator = 0;
+	sq_atd_elevator_activated = 0;
 
-	foreach ( m_elevator_flag in a_elevator_flags )
+	for ( i = 0; i < a_elevator_flags.size; i++ )
 	{
-		if ( flag( m_elevator_flag ) )
-			n_players_standing_on_elevator++;
+		if ( flag( a_elevator_flags[i] ) )
+			sq_atd_elevator_activated++;
 	}
 
-	return n_players_standing_on_elevator >= custom_get_number_of_players();
+	return sq_atd_elevator_activated >= num_player_valid();
 }
 
 //Dragon Puzzle step
@@ -148,12 +148,12 @@ standing_on_enough_elevators_check( a_elevator_flags )
 //initialises the floor symbols to require as many symbols as players
 sq_atd_drg_puzzle()
 {
-	level.sq_atd_cur_drg = 4 - custom_get_number_of_players();
+	level.sq_atd_cur_drg = 4 - num_player_valid();
 	a_puzzle_trigs = getentarray( "trig_atd_drg_puzzle", "targetname" );
 	a_puzzle_trigs = array_randomize( a_puzzle_trigs );
 
 	for ( i = 0; i < a_puzzle_trigs.size; i++ )
-		a_puzzle_trigs[i] thread drg_puzzle_trig_think( i );
+		a_puzzle_trigs[i] thread maps\mp\zm_highrise_sq_atd::drg_puzzle_trig_think( i );
 
 	while ( level.sq_atd_cur_drg < 4 )
 		wait 1;
@@ -204,7 +204,7 @@ drg_puzzle_trig_think( n_order_id )
 			if ( !flag( "sq_atd_drg_puzzle_1st_error" ) )
 				level thread vo_maxis_atd_order_error();
 
-			level.sq_atd_cur_drg = 4 - custom_get_number_of_players();
+			level.sq_atd_cur_drg = 4 - num_player_valid();
 			level notify( "drg_puzzle_reset" );
 /#
 			iprintlnbold( "INCORRECT DRAGON" );
@@ -222,23 +222,23 @@ drg_puzzle_trig_think( n_order_id )
 sq_1()
 {
 	level endon( "sq_ball_picked_up" );
-	level waittill( "sq_1_pts_1_started" );
-	level.n_players_since_rich_pts_start = get_players().size;
+	level waittill( "sq_1" + "_" + "pts_1" + "_started" );
+	level.pts_ghoul = get_players().size;
 
-	foreach ( player in get_players() )
-		player thread onPlayerDisconnect( 0 );
+	for ( i = 0; i < get_players().size; i++ )
+		get_players()[i] thread onPlayerDisconnect( 0 );
 
 	level waittill( "pts_1_springpads_placed" );
-	level.n_players_since_rich_pts_start = undefined;
+	level.pts_ghoul = undefined;
 }
 
 sq_2()
 {
-	level waittill( "sq_2_pts_2_started" );
-	level.n_players_since_maxis_pts_start = get_players().size;
+	level waittill( "sq_2" + "_" + "pts_2" + "_started" );
+	level.pts_lion = get_players().size;
 
-	foreach ( player in get_players() )
-		player thread onPlayerDisconnect( 1 );
+	for ( i = 0; i < get_players().size; i++ )
+		get_players()[i] thread onPlayerDisconnect( 1 );
 }
 
 onPlayerDisconnect( is_generator )
@@ -250,13 +250,13 @@ onPlayerDisconnect( is_generator )
 
 	if ( is_generator )
 	{
-		if ( isdefined( level.n_players_since_maxis_pts_start ) )
-			level.n_players_since_maxis_pts_start--;
+		if ( isdefined( level.pts_lion ) )
+			level.pts_lion--;
 	}
 	else
 	{
-		if ( isdefined( level.n_players_since_rich_pts_start ) )
-			level.n_players_since_rich_pts_start--;
+		if ( isdefined( level.pts_ghoul ) )
+			level.pts_ghoul--;
 	}
 }
 
@@ -267,7 +267,7 @@ place_ball_think( t_place_ball, s_lion_spot )
 	t_place_ball endon( "delete" );
 	t_place_ball waittill( "trigger" );
 
-	if ( !isdefined( level.n_players_since_maxis_pts_start ) || level.n_players_since_maxis_pts_start > 3 )
+	if ( !isdefined( level.pts_lion ) || level.pts_lion > 3 )
 	{
 		pts_putdown_trigs_remove_for_spot( s_lion_spot );
 		pts_putdown_trigs_remove_for_spot( s_lion_spot.springpad_buddy );
@@ -290,25 +290,20 @@ place_ball_think( t_place_ball, s_lion_spot )
 	s_lion_spot.springpad thread pts_springpad_fling( s_lion_spot.script_noteworthy, s_lion_spot.springpad_buddy.springpad );
 	self.t_putdown_ball delete();
 
-	if ( isdefined( level.n_players_since_maxis_pts_start ) && level.n_players_since_maxis_pts_start == 3 )
+	//once a player flings a ball, gives each player already carrying a ball the ability to place it on the Trample Steam(s) placed on the other set of symbols than the ones on which the ball was flung.
+	if ( isdefined( level.pts_lion ) && level.pts_lion == 3 )
 	{
-		foreach ( player in getPlayers() )
+		for ( i = 0; i < level.players.size; i++ )
 		{
-			if ( isdefined( player.zm_sq_has_ball ) && player.zm_sq_has_ball )
-				pts_should_placing_ball_create_trigs( s_lion_spot, player );
+			if ( isdefined( level.players[i].zm_sq_has_ball ) && level.players[i].zm_sq_has_ball )
+			{
+				foreach ( s_spot in getstructarray( "pts_lion", "targetname" ) )
+				{
+					if ( isdefined( s_spot.springpad ) && s_spot != s_lion_spot && s_spot.springpad_buddy != s_lion_spot )
+						maps\mp\zm_highrise_sq_pts::pts_putdown_trigs_create_for_spot( s_spot, level.players[i] );
+				}
+			}
 		}
-	}
-}
-
-//once a player flings a ball, gives each player already carrying a ball the ability to place it on the Trample Steam(s) placed on the other set of symbols than the ones on which the ball was flung.
-pts_should_placing_ball_create_trigs( s_lion_spot_used, player )
-{
-	a_lion_spots = getstructarray( "pts_lion", "targetname" );
-
-	foreach ( s_lion_spot in a_lion_spots )
-	{
-		if ( isdefined( s_lion_spot.springpad ) && s_lion_spot != s_lion_spot_used && s_lion_spot.springpad_buddy != s_lion_spot_used )
-			pts_putdown_trigs_create_for_spot( s_lion_spot, player );
 	}
 }
 
@@ -327,7 +322,7 @@ wait_for_all_springpads_placed( str_type, str_flag )
 				is_clear++;
 		}
 
-		if ( is_clear <= 4 - custom_get_number_of_players( 0 ) )
+		if ( is_clear <= 4 - num_player_valid( 0 ) )
 			flag_set( str_flag );
 
 		wait 1;
@@ -341,15 +336,15 @@ pts_should_player_create_trigs( player )
 
 	foreach ( s_lion_spot in a_lion_spots )
 	{
-		if ( isdefined( s_lion_spot.springpad ) && ( isdefined( s_lion_spot.springpad_buddy.springpad ) || ( isdefined( level.n_players_since_maxis_pts_start ) && ( level.n_players_since_maxis_pts_start == 1 || ( level.n_players_since_maxis_pts_start == 3 && flag( "pts_2_generator_1_started" ) ) ) ) ) )
-			pts_putdown_trigs_create_for_spot( s_lion_spot, player );
+		if ( isdefined( s_lion_spot.springpad ) && ( isdefined( s_lion_spot.springpad_buddy.springpad ) || ( isdefined( level.pts_lion ) && ( level.pts_lion == 1 || ( level.pts_lion == 3 && flag( "pts_2_generator_1_started" ) ) ) ) ) )
+			maps\mp\zm_highrise_sq_pts::pts_putdown_trigs_create_for_spot( s_lion_spot, player );
 	}
 }
 
 //on the Maxis side if the player is playing solo or 3p, once a player places a Trample Steam correctly, gives each player already carrying a ball the ability to place it without needing a Trample Steam on the opposite end. On 3p, this is executed if the Trample Steam is placed while there's already a ball flinging.
 pts_should_springpad_create_trigs( s_lion_spot )
 {
-	if ( isdefined( s_lion_spot.springpad ) && isdefined( s_lion_spot.springpad_buddy ) && ( isdefined( s_lion_spot.springpad_buddy.springpad ) || ( isdefined( level.n_players_since_maxis_pts_start ) && ( level.n_players_since_maxis_pts_start == 1 || ( level.n_players_since_maxis_pts_start == 3 && flag( "pts_2_generator_1_started" ) ) ) ) ) )
+	if ( isdefined( s_lion_spot.springpad ) && isdefined( s_lion_spot.springpad_buddy ) && ( isdefined( s_lion_spot.springpad_buddy.springpad ) || ( isdefined( level.pts_lion ) && ( level.pts_lion == 1 || ( level.pts_lion == 3 && flag( "pts_2_generator_1_started" ) ) ) ) ) )
 	{
 		a_players = getplayers();
 
@@ -357,10 +352,10 @@ pts_should_springpad_create_trigs( s_lion_spot )
 		{
 			if ( isdefined( player.zm_sq_has_ball ) && player.zm_sq_has_ball )
 			{
-				pts_putdown_trigs_create_for_spot( s_lion_spot, player );
+				maps\mp\zm_highrise_sq_pts::pts_putdown_trigs_create_for_spot( s_lion_spot, player );
 
 				if ( isdefined( s_lion_spot.springpad_buddy.springpad ) )
-					pts_putdown_trigs_create_for_spot( s_lion_spot.springpad_buddy, player );
+					maps\mp\zm_highrise_sq_pts::pts_putdown_trigs_create_for_spot( s_lion_spot.springpad_buddy, player );
 			}
 		}
 	}
@@ -369,13 +364,13 @@ pts_should_springpad_create_trigs( s_lion_spot )
 //if the number of players is 3 or less, once a ball is picked up, gives the ability to place a 2nd ball on a set of Trample Steams that already has a ball flinging from them for the Maxis Trample Steam step
 pts_putdown_trigs_create_for_spot( s_lion_spot, player )
 {
-	if ( ( !isdefined( level.n_players_since_maxis_pts_start ) || level.n_players_since_maxis_pts_start >= 4 ) && ( isdefined( s_lion_spot.which_ball ) || isdefined( s_lion_spot.springpad_buddy ) && isdefined( s_lion_spot.springpad_buddy.which_ball ) ) )
+	if ( ( !isdefined( level.pts_lion ) || level.pts_lion >= 4 ) && ( isdefined( s_lion_spot.which_ball ) || isdefined( s_lion_spot.springpad_buddy ) && isdefined( s_lion_spot.springpad_buddy.which_ball ) ) )
 		return;
 
 	t_place_ball = sq_pts_create_use_trigger( s_lion_spot.origin, 16, 70, &"ZM_HIGHRISE_SQ_PUTDOWN_BALL" );
 	player clientclaimtrigger( t_place_ball );
 	t_place_ball.owner = player;
-	player thread place_ball_think( t_place_ball, s_lion_spot );
+	player thread maps\mp\zm_highrise_sq_pts::place_ball_think( t_place_ball, s_lion_spot );
 
 	if ( !isdefined( s_lion_spot.pts_putdown_trigs ) )
 		s_lion_spot.pts_putdown_trigs = [];

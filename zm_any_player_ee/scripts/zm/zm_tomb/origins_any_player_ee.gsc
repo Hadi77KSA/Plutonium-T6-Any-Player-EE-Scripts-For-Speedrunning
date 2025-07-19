@@ -16,11 +16,11 @@ onPlayerConnect()
 	for (;;)
 	{
 		level waittill( "connected", player );
-		player thread display_mod_message();
+		player thread msg();
 	}
 }
 
-display_mod_message()
+msg()
 {
 	self endon( "disconnect" );
 	flag_wait( "initial_players_connected" );

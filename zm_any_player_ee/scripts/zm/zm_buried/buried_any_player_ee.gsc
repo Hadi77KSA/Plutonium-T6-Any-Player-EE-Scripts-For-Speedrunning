@@ -24,29 +24,29 @@ onPlayerConnect()
 	for (;;)
 	{
 		level waittill( "connected", player );
-		player thread display_mod_message();
+		player thread msg();
 	}
 }
 
-display_mod_message()
+msg()
 {
 	self endon( "disconnect" );
 	flag_wait( "initial_players_connected" );
 	self iPrintLn( "^2Any Player EE Mod ^5Buried" );
 }
 
-targets_allowed_to_be_missed()
+zmb_sq_target_flip()
 {
 	switch ( getPlayers().size )
 	{
 		case 1:
-			level.targets_allowed_to_be_missed = 64; // Total (84) - ( Candy Shop (20) )
+			level.zmb_sq_target_flip = 64; // Total (84) - ( Candy Shop (20) )
 			break;
 		case 2:
-			level.targets_allowed_to_be_missed = 45; // Total (84) - ( Candy Shop (20) + Saloon (19) )
+			level.zmb_sq_target_flip = 45; // Total (84) - ( Candy Shop (20) + Saloon (19) )
 			break;
 		default: //All 4 areas of the map
-			level.targets_allowed_to_be_missed = 0;
+			level.zmb_sq_target_flip = 0;
 			break;
 	}
 }
@@ -95,7 +95,7 @@ ctw_max_start_wisp()
 	vh_wisp thread ctw_max_success_watch();
 	vh_wisp thread ctw_max_fail_watch();
 	vh_wisp thread ctw_max_wisp_enery_watch();
-	vh_wisp thread buried_maxis_wisp();
+	vh_wisp thread health_add();
 	wait_network_frame();
 	flag_wait_any( "sq_wisp_success", "sq_wisp_failed" );
 	vh_wisp cancelaimove();
@@ -106,7 +106,7 @@ ctw_max_start_wisp()
 		level.vh_wisp delete();
 }
 
-buried_maxis_wisp()
+health_add()
 {
 	self endon( "death" );
 
@@ -146,9 +146,9 @@ ows_target_delete_timer()
 	self endon( "death" );
 	wait 4;
 	self notify( "ows_target_timeout" );
-	level.targets_allowed_to_be_missed--;
+	level.zmb_sq_target_flip--;
 
-	if ( level.targets_allowed_to_be_missed < 0 )
+	if ( level.zmb_sq_target_flip < 0 )
 		flag_set( "sq_ows_target_missed" );
 
 /#
@@ -160,7 +160,7 @@ ows_targets_start()
 {
 	n_cur_second = 0;
 	flag_clear( "sq_ows_target_missed" );
-	targets_allowed_to_be_missed();
+	zmb_sq_target_flip();
 	level thread sndsidequestowsmusic();
 	a_sign_spots = getstructarray( "otw_target_spot", "script_noteworthy" );
 
