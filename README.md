@@ -17,9 +17,9 @@ The following scripts allow the main Easter Egg quests to be done with any numbe
 
 #### Patches
 Can be found in `zm_any_player_ee\scripts\zm\Patches`
-* `die_rise_any_player_ee-no_reset.gsc` to avoid conflict, not to be used with `die_rise_any_player_ee.gsc`  
+* `die_rise_extra_no_reset_floor_puzzle.gsc` can be used along with `die_rise_any_player_ee.gsc`  
 The file goes in `scripts\zm\zm_highrise`  
-This version makes the floor symbols not reset once an incorrect symbol is stepped on.
+This patch makes the floor symbols not reset once an incorrect symbol is stepped on.
 * ~~`buried_body_fix.gsc` can be used along with `buried_any_player_ee.gsc`  
 The file goes in `scripts\zm\zm_buried`  
 This patch makes the bodies on the round infinity step on the Richtofen side have the switch on the first 3 bodies searched.~~ **Update:** ZWR has prohibited the use of the body fix patch, thus it will no longer be provided/maintained. 
